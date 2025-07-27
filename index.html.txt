@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>BTB – Beat The Books</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>🔥 BTB</h1>
+    <p>Beat The Books</p>
+  </header>
+
+  <section class="calculator">
+    <h2>Arbitrage Calculator</h2>
+    <label>Odds 1: <input type="number" id="odds1" /></label>
+    <label>Odds 2: <input type="number" id="odds2" /></label>
+    <label>Stake: <input type="number" id="stake" /></label>
+    <button onclick="calculate()">Calculate</button>
+    <div id="result"></div>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>
