@@ -21,16 +21,20 @@
 <main class="main-panel">
  <div id="calculator" class="tab" style="display: none;">
   <h2>Arbitrage Calculator</h2>
-  <p>Enter odds and either stake amount:</p>
-<label>Odds 1: <input type="number" id="odds1" step="0.01" /></label><br>
-<label>Odds 2: <input type="number" id="odds2" step="0.01" /></label><br><br>
+  <p>Enter odds, stakes, and optional lines:</p>
 
-<label>Stake 1: <input type="number" id="stake1" step="0.01" oninput="calculateFromStake1()" /></label><br>
-<label>Stake 2: <input type="number" id="stake2" step="0.01" oninput="calculateFromStake2()" /></label><br><br>
+  <label>Odds 1: <input type="number" id="odds1" step="0.01" /></label><br>
+  <label>Odds 2: <input type="number" id="odds2" step="0.01" /></label><br><br>
 
+  <label>Line 1: <input type="number" id="line1" step="0.1" /></label><br>
+  <label>Line 2: <input type="number" id="line2" step="0.1" /></label><br><br>
 
-<div id="result"></div>
+  <label>Stake 1: <input type="number" id="stake1" step="0.01" oninput="calculateFromStake1()" /></label><br>
+  <label>Stake 2: <input type="number" id="stake2" step="0.01" oninput="calculateFromStake2()" /></label><br><br>
+
+  <div id="result"></div>
 </div>
+
   
 <div id="ev" class="tab" style="display: none;">
   <h2>+EV Feed</h2>
