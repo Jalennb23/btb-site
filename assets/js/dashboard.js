@@ -23,3 +23,20 @@ function calculate() {
 }
 
 window.onload = () => showTab('calculator');
+function showTab(tabId) {
+  const tabs = document.querySelectorAll('.tab');
+  const buttons = document.querySelectorAll('nav button');
+
+  // Hide all tabs
+  tabs.forEach(tab => tab.classList.remove('active'));
+
+  // Remove active class from all buttons
+  buttons.forEach(btn => btn.classList.remove('active'));
+
+  // Show selected tab and activate corresponding button
+  document.getElementById(tabId).classList.add('active');
+  const activeButton = document.querySelector(`nav button[data-tab="${tabId}"]`);
+  if (activeButton) {
+    activeButton.classList.add('active');
+  }
+}
