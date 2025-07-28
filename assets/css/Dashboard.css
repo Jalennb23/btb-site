@@ -1,16 +1,63 @@
-.dashboard-btn {
-  display: inline-block;
-  background-color: #ff6600;
-  color: #ffffff;
-  padding: 12px 24px;
-  font-size: 16px;
-  font-weight: bold;
-  text-decoration: none;
-  border-radius: 6px;
-  margin-top: 20px;
-  transition: background-color 0.3s ease;
+/* General Layout */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #0a0a0a;
+  color: #fff;
 }
 
-.dashboard-btn:hover {
-  background-color: #e85500;
+/* Header */
+header {
+  background-color: #1a1a1a;
+  padding: 20px;
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  color: #ffcc00;
+  border-bottom: 1px solid #333;
+}
+
+/* Sidebar Navigation */
+nav {
+  position: fixed;
+  top: 80px;
+  left: 0;
+  width: 220px;
+  height: 100%;
+  background-color: #111;
+  border-right: 1px solid #333;
+  padding-top: 20px;
+}
+
+nav button {
+  display: block;
+  width: 100%;
+  padding: 15px 20px;
+  color: #fff;
+  background: none;
+  border: none;
+  text-align: left;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+nav button:hover,
+nav button.active {
+  background-color: #ff6600;
+}
+
+/* Main Content Area */
+main {
+  margin-left: 240px;
+  padding: 30px;
+}
+
+/* Tabs (hidden by default) */
+.tab {
+  display: none;
+}
+
+.tab.active {
+  display: block;
 }
