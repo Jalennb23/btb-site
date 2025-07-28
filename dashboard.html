@@ -18,37 +18,35 @@
 </nav>
   </header>
 
-  <main>
-    <div id="calculator" class="tab">
-      <h2>Arbitrage Calculator</h2>
-      <input type="number" id="odds1" placeholder="Odds 1">
-      <input type="number" id="odds2" placeholder="Odds 2">
-      <input type="number" id="stake" placeholder="Stake">
-      <button onclick="calculate()">Calculate</button>
-      <div id="result"></div>
-    </div>
+<main>
+  <div id="calculator" class="tab">
+    <h2>Arbitrage Calculator</h2>
+    <input type="number" id="odds1" placeholder="Odds 1">
+    <input type="number" id="odds2" placeholder="Odds 2">
+    <input type="number" id="stake" placeholder="Stake">
+    <button onclick="calculate()">Calculate</button>
+    <div id="result"></div>
+  </div>
+ <div id="ev" class="tab" style="display: none;">
+    <h2>+EV Feed</h2>
+    <p>Pregame, Live, and Stoppage EV bets coming soon.</p>
+  </div>
 
-    <div id="ev" class="tab">
-      <h2>+EV Feed</h2>
-      <p>Pregame, Live, and Stoppage EV bets coming soon.</p>
-    </div>
+  <div id="arb" class="tab" style="display: none;">
+    <h2>Arbitrage Feed</h2>
+    <p>Odds feed and calculators will appear here.</p>
+  </div>
 
-    <div id="arb" class="tab">
-      <h2>Arbitrage Feed</h2>
-      <p>Odds feed and calculators will appear here.</p>
-    </div>
+  <div id="live" class="tab" style="display: none;">
+    <h2>Live Odds Feed</h2>
+    <p>Live betting odds from all sportsbooks.</p>
+  </div>
 
-    <div id="live" class="tab">
-      <h2>Live Odds Feed</h2>
-      <p>Live betting odds from all sportsbooks.</p>
-    </div>
-
-    <div id="chat" class="tab">
-      <h2>Community Chat</h2>
-      <p>Chat interface and messages will be live soon.</p>
-    </div>
-  </main>
-
-  <script src="assets/js/dashboard.js"></script>
+  <div id="chat" class="tab" style="display: none;">
+    <h2>Community Chat</h2>
+    <p>Chat interface and messages will be live soon.</p>
+  </div>
+</main>
+<script src="assets/js/dashboard.js"></script>
 </body>
 </html>
