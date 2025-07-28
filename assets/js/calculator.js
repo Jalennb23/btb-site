@@ -25,8 +25,12 @@ function calculateFromStake1() {
   const profit = Math.min((stake1 * decOdds1), (stake2 * decOdds2)) - (stake1 + stake2);
 
   document.getElementById('stake2').value = stake2.toFixed(2);
-  document.getElementById('result').innerHTML =
-    `Stake 1: $${stake1.toFixed(2)}<br>Stake 2: $${stake2.toFixed(2)}<br>Profit: $${profit.toFixed(2)}`;
+  let resultHTML = `
+    Stake 1: $${stake1.toFixed(2)}<br>
+    Stake 2: $${stake2.toFixed(2)}<br>
+    Profit: <span style="color:${profit >= 0 ? 'green' : 'red'}">$${profit.toFixed(2)}</span>
+  `;
+  document.getElementById('result').innerHTML = resultHTML;
 }
 
 function calculateFromStake2() {
@@ -46,8 +50,12 @@ function calculateFromStake2() {
   const profit = Math.min((stake1 * decOdds1), (stake2 * decOdds2)) - (stake1 + stake2);
 
   document.getElementById('stake1').value = stake1.toFixed(2);
-  document.getElementById('result').innerHTML =
-    `Stake 1: $${stake1.toFixed(2)}<br>Stake 2: $${stake2.toFixed(2)}<br>Profit: $${profit.toFixed(2)}`;
+  let resultHTML = `
+    Stake 1: $${stake1.toFixed(2)}<br>
+    Stake 2: $${stake2.toFixed(2)}<br>
+    Profit: <span style="color:${profit >= 0 ? 'green' : 'red'}">$${profit.toFixed(2)}</span>
+  `;
+  document.getElementById('result').innerHTML = resultHTML;
 }
 
 window.onload = () => showTab('calculator');
@@ -73,4 +81,3 @@ function showTab(tabId) {
     activeButton.classList.add('active');
   }
 }
-
