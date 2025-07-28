@@ -1,549 +1,148 @@
-/* General Layout */
+/* dashboard.css — Redesigned BTB dark dashboard with neon green theme */
+
 body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
-  background-color: #0a0a0a;
-  color: #fff;
+  background-color: #0d0d0d;
+  color: #e0e0e0;
 }
 
-/* Header */
-header {
-  background-color: #1a1a1a;
-  padding: 20px;
-  text-align: center;
-  font-size: 24px;
-  font-weight: bold;
-  color: #ffcc00;
-  border-bottom: 1px solid #333;
+.dashboard-container {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
 }
 
-/* Sidebar Navigation */
-nav {
-  position: fixed;
-  top: 80px;
-  left: 0;
-  width: 220px;
-  height: 100%;
+.sidebar {
+  width: 240px;
   background-color: #111;
-  border-right: 1px solid #333;
-  padding-top: 20px;
+  padding: 30px 20px;
+  border-right: 1px solid #1f1f1f;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
-nav button {
-  display: block;
-  width: 100%;
-  padding: 15px 20px;
-  color: #fff;
+.sidebar h1 {
+  color: #00ff88;
+  font-size: 28px;
+  margin: 0;
+  text-shadow: 0 0 10px #00ff88;
+}
+
+.sidebar nav {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.tab-btn {
   background: none;
-  border: none;
-  text-align: left;
+  border: 1px solid #00ff88;
+  color: #00ff88;
   font-size: 16px;
+  padding: 10px;
+  border-radius: 6px;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: background 0.3s, color 0.3s;
 }
 
-nav button:hover,
-nav button.active {
-  background-color: #ff6600;
+.tab-btn:hover,
+.tab-btn.active {
+  background-color: #00ff88;
+  color: #0d0d0d;
 }
 
-/* Main Content Area */
-main {
-  margin-left: 240px;
+.main-panel {
+  flex-grow: 1;
   padding: 30px;
+  overflow-y: auto;
+  background-color: #0d0d0d;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
 }
 
-/* Tabs (hidden by default) */
 .tab {
   display: none;
+  animation: fadeIn 0.4s ease-in-out;
 }
 
 .tab.active {
   display: block;
 }
-/* Calculator Section Styling */
-#calculator {
-  background-color: #1c1c1c;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(255, 102, 0, 0.2);
-}
 
-#calculator h2 {
-  margin-bottom: 20px;
-  color: #ffcc00;
-}
-
-#calculator label {
+label {
   display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
-  color: #ccc;
-}
-
-#calculator input {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 15px;
-  border-radius: 5px;
-  border: none;
-  background-color: #333;
-  color: #fff;
-}
-
-#calculator button {
-  background-color: #ff6600;
-  color: #fff;
-  padding: 12px 20px;
-  border: none;
-  border-radius: 6px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-#calculator button:hover {
-  background-color: #e85500;
-}
-
-#calculator #result {
-  margin-top: 20px;
-  padding: 10px;
-  border-top: 1px solid #444;
-  color: #0f0;
-  font-weight: bold;
-}
-/* +EV Feed Styling */
-#ev {
-  background-color: #1c1c1c;
-  padding: 20px;
-  border-radius: 8px;
-  margin-top: 20px;
-  color: #fff;
-}
-
-#ev h2 {
-  color: #00e6e6;
-  margin-bottom: 15px;
-}
-
-.ev-entry {
-  background-color: #292929;
-  border-left: 4px solid #00e6e6;
-  padding: 12px 16px;
   margin-bottom: 10px;
-  border-radius: 5px;
+  font-weight: bold;
+  color: #e0e0e0;
 }
 
-.ev-entry span {
-  display: block;
-  margin-bottom: 5px;
-  font-size: 14px;
-}
-/* Arbitrage Feed Styling */
-#arb {
-  background-color: #1c1c1c;
-  padding: 20px;
-  border-radius: 8px;
-  margin-top: 20px;
-  color: #fff;
-}
-
-#arb h2 {
-  color: #ff6600;
-  margin-bottom: 15px;
-}
-
-.arb-entry {
-  background-color: #2d2d2d;
-  border-left: 4px solid #ff6600;
-  padding: 12px 16px;
-  margin-bottom: 10px;
-  border-radius: 5px;
-}
-
-.arb-entry span {
-  display: block;
-  margin-bottom: 5px;
-  font-size: 14px;
-}
-/* Live Odds Feed Styling */
-#live {
-  background-color: #1c1c1c;
-  padding: 20px;
-  border-radius: 8px;
-  margin-top: 20px;
-  color: #fff;
-}
-
-#live h2 {
+input[type="number"] {
+  background-color: #1a1a1a;
+  border: 1px solid #333;
   color: #00ff88;
-  margin-bottom: 15px;
-}
-
-.live-entry {
-  background-color: #2a2a2a;
-  border-left: 4px solid #00ff88;
-  padding: 12px 16px;
-  margin-bottom: 10px;
+  padding: 8px 12px;
   border-radius: 5px;
-}
-
-.live-entry span {
-  display: block;
-  margin-bottom: 5px;
   font-size: 14px;
-}
-/* Chat Panel Styling */
-#chat {
-  background-color: #1c1c1c;
-  padding: 20px;
-  border-radius: 8px;
-  margin-top: 20px;
-  color: #fff;
-  max-height: 500px;
-  overflow-y: auto;
-}
-
-/* Chat Header */
-#chat h2 {
-  color: #ffffff;
-  margin-bottom: 15px;
-}
-
-/* Chat Message Bubble */
-.chat-message {
-  background-color: #2d2d2d;
-  border-radius: 6px;
-  padding: 10px 15px;
-  margin-bottom: 10px;
-  position: relative;
-}
-
-/* Username Styling + Badge */
-.chat-message .username {
-  font-weight: bold;
-  margin-bottom: 5px;
-  display: block;
-}
-
-.chat-message .username .badge {
-  margin-left: 6px;
-  font-size: 14px;
-  vertical-align: middle;
-}
-
-/* Badge Colors */
-.badge.starter {
-  color: #00aaff;
-}
-
-.badge.elite {
-  color: gold;
-}
-
-.badge.free {
-  color: #ccc;
-}
-
-/* Chat Input */
-#chat-input {
-  display: flex;
-  margin-top: 15px;
-}
-
-#chat-input input {
-  flex: 1;
-  padding: 10px;
-  background-color: #333;
-  color: #fff;
-  border: none;
-  border-radius: 4px 0 0 4px;
-}
-
-#chat-input button {
-  padding: 10px 20px;
-  background-color: #ff6600;
-  color: #fff;
-  border: none;
-  border-radius: 0 4px 4px 0;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-#chat-input button:hover {
-  background-color: #e85500;
-}
-/* Dashboard Layout */
-.dashboard-container {
-  display: flex;
-  height: 100vh;
-  font-family: Arial, sans-serif;
-}
-
-/* Sidebar */
-.sidebar {
-  width: 220px;
-  background-color: #1e1e2f;
-  color: white;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-}
-
-.sidebar h1 {
-  font-size: 24px;
-  margin-bottom: 30px;
-  color: #ff6600;
-}
-
-/* Sidebar Buttons */
-.tab-btn {
-  background: none;
-  color: white;
-  border: none;
-  padding: 12px;
-  margin-bottom: 10px;
-  text-align: left;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-.tab-btn:hover {
-  background-color: #33334d;
-}
-
-/* Main Panel */
-.main-panel {
-  flex-grow: 1;
-  padding: 30px;
-  background-color: #f4f4f7;
-  overflow-y: auto;
-}
-/* Calculator Styling */
-#calculator {
-  background-color: white;
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  max-width: 500px;
-}
-
-#calculator h2 {
-  margin-bottom: 20px;
-  color: #333;
-}
-
-#calculator input {
-  width: 100%;
-  padding: 12px;
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 16px;
-}
-
-#calculator button {
-  background-color: #ff6600;
-  color: white;
-  border: none;
-  padding: 12px 20px;
-  font-size: 16px;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-#calculator button:hover {
-  background-color: #e85500;
+  width: 200px;
 }
 
 #result {
   margin-top: 20px;
-  font-weight: bold;
-  color: #1e1e2f;
-}
-/* +EV Feed Styling */
-#ev {
-  background-color: white;
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  max-width: 800px;
-}
-
-#ev h2 {
-  margin-bottom: 15px;
-  color: #333;
-}
-
-#ev p {
-  font-size: 16px;
-  color: #666;
-}
-/* Arbitrage Tab Styling */
-#arb {
-  background-color: white;
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  max-width: 800px;
-}
-
-#arb h2 {
-  margin-bottom: 15px;
-  color: #333;
-}
-
-#arb p {
-  font-size: 16px;
-  color: #666;
-}
-/* Live Odds Tab Styling */
-#live {
-  background-color: white;
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  max-width: 800px;
-}
-
-#live h2 {
-  margin-bottom: 15px;
-  color: #333;
-}
-
-#live p {
-  font-size: 16px;
-  color: #666;
-}
-/* Chat Tab Styling */
-#chat {
-  background-color: white;
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  max-width: 800px;
-  display: flex;
-  flex-direction: column;
-}
-
-#chat h2 {
-  margin-bottom: 15px;
-  color: #333;
-}
-
-#chat-window {
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  height: 300px;
-  padding: 10px;
-  overflow-y: scroll;
-  background-color: #f9f9f9;
-  margin-bottom: 15px;
-}
-
-#chat-input {
-  display: flex;
-  gap: 10px;
-}
-
-#chat-input input {
-  flex-grow: 1;
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-}
-
-#chat-input button {
-  background-color: #ff6600;
-  color: white;
-  border: none;
-  padding: 10px 16px;
-  font-size: 16px;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-#chat-input button:hover {
-  background-color: #e85500;
-}
-#chat-window {
-  background-color: #1f1f1f;
-  padding: 16px;
+  padding: 20px;
+  background-color: #1a1a1a;
   border-radius: 8px;
-  height: 200px;
-  overflow-y: auto;
-  margin-bottom: 12px;
-  color: #fff;
-  font-size: 14px;
+  font-size: 16px;
+  color: #ccc;
+  border: 1px solid #00ff88;
 }
 
-#chat-window p {
-  margin: 6px 0;
+#result span {
+  font-weight: bold;
+}
+
+#chat-window {
+  background-color: #141414;
+  padding: 15px;
+  height: 300px;
+  overflow-y: auto;
+  border-radius: 8px;
+  border: 1px solid #333;
 }
 
 #chat-input {
+  margin-top: 10px;
   display: flex;
   gap: 10px;
 }
 
 #chat-input input[type="text"] {
-  flex: 1;
+  flex-grow: 1;
   padding: 10px;
   border-radius: 6px;
-  border: 1px solid #ccc;
-  font-size: 14px;
+  border: 1px solid #333;
+  background-color: #1a1a1a;
+  color: #00ff88;
 }
 
 #chat-input button {
-  padding: 10px 20px;
+  background-color: #00ff88;
   border: none;
-  background-color: #ff6600;
-  color: #fff;
+  color: #0d0d0d;
   font-weight: bold;
+  padding: 10px 15px;
   border-radius: 6px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background 0.3s;
 }
 
 #chat-input button:hover {
-  background-color: #e85500;
-}
-.calculator-container {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  max-width: 400px;
-  margin-top: 20px;
+  background-color: #00cc70;
 }
 
-.calculator-container input {
-  padding: 8px;
-  font-size: 16px;
-}
-
-.calculator-container button {
-  padding: 10px;
-  background-color: #ff6600;
-  color: white;
-  font-weight: bold;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.calculator-container button:hover {
-  background-color: #e85500;
-}
-
-#result {
-  margin-top: 16px;
-  font-size: 18px;
-  font-weight: bold;
-  color: #1abc9c;
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
