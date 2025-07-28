@@ -1,8 +1,3 @@
-function showTab(tabName) {
-  document.querySelectorAll('.tab').forEach(tab => tab.style.display = 'none');
-  document.getElementById(tabName).style.display = 'block';
-}
-
 function calculate() {
   const odds1 = parseFloat(document.getElementById('odds1').value);
   const odds2 = parseFloat(document.getElementById('odds2').value);
@@ -27,14 +22,23 @@ function showTab(tabId) {
   const tabs = document.querySelectorAll('.tab');
   const buttons = document.querySelectorAll('nav button');
 
-  // Hide all tabs
-  tabs.forEach(tab => tab.classList.remove('active'));
+  // Hide all tab content
+  tabs.forEach(tab => {
+    tab.style.display = 'none';
+    tab.classList.remove('active');
+  });
 
-  // Remove active class from all buttons
+  // Show the selected tab content
+  const activeTab = document.getElementById(tabId);
+  if (activeTab) {
+    activeTab.style.display = 'block';
+    activeTab.classList.add('active');
+  }
+
+  // Remove 'active' class from all buttons
   buttons.forEach(btn => btn.classList.remove('active'));
 
-  // Show selected tab and activate corresponding button
-  document.getElementById(tabId).classList.add('active');
+  // Add 'active' class to the clicked button
   const activeButton = document.querySelector(`nav button[data-tab="${tabId}"]`);
   if (activeButton) {
     activeButton.classList.add('active');
