@@ -21,17 +21,14 @@
 <main class="main-panel">
   <div id="calculator" class="tab" style="display: none;">
   <h2>Arbitrage Calculator</h2>
-<div class="calculator-container">
-  <label for="odds1">Odds 1:</label>
-  <input type="number" id="odds1" placeholder="Enter odds from Book 1" step="0.01">
+<div id="calculator" class="tab" style="display: none;">
+  <h2>Arbitrage Calculator</h2>
+  <p>Enter odds and either stake amount:</p>
+  <label>Odds 1: <input type="number" id="odds1" step="0.01" /></label><br>
+  <label>Odds 2: <input type="number" id="odds2" step="0.01" /></label><br><br>
 
-  <label for="odds2">Odds 2:</label>
-  <input type="number" id="odds2" placeholder="Enter odds from Book 2" step="0.01">
-
-  <label for="stake">Total Stake ($):</label>
-  <input type="number" id="stake" placeholder="Enter total amount you want to stake" step="0.01">
-
-  <button onclick="calculate()">Calculate</button>
+  <label>Stake 1: <input type="number" id="stake1" step="0.01" oninput="calculateFromStake1()" /></label><br>
+  <label>Stake 2: <input type="number" id="stake2" step="0.01" oninput="calculateFromStake2()" /></label><br><br>
 
   <div id="result"></div>
 </div>
@@ -67,5 +64,6 @@
 </main>
   </div>
   <script src="assets/js/dashboard.js"></script>
+  <script src="assets/js/calculator.js"></script>
 </body>
 </html>
