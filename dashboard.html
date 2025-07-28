@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>BTB Dashboard</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+  <header>
+    <h1>🏆 Beat The Books Dashboard</h1>
+    <nav>
+      <button onclick="showTab('calculator')">Calculator</button>
+      <button onclick="showTab('ev')">+EV Feed</button>
+      <button onclick="showTab('arb')">Arbitrage</button>
+      <button onclick="showTab('live')">Live Odds</button>
+      <button onclick="showTab('chat')">Chat</button>
+    </nav>
+  </header>
+
+  <main>
+    <div id="calculator" class="tab">
+      <h2>Arbitrage Calculator</h2>
+      <input type="number" id="odds1" placeholder="Odds 1">
+      <input type="number" id="odds2" placeholder="Odds 2">
+      <input type="number" id="stake" placeholder="Stake">
+      <button onclick="calculate()">Calculate</button>
+      <div id="result"></div>
+    </div>
+
+    <div id="ev" class="tab">
+      <h2>+EV Feed</h2>
+      <p>Pregame, Live, and Stoppage EV bets coming soon.</p>
+    </div>
+
+    <div id="arb" class="tab">
+      <h2>Arbitrage Feed</h2>
+      <p>Odds feed and calculators will appear here.</p>
+    </div>
+
+    <div id="live" class="tab">
+      <h2>Live Odds Feed</h2>
+      <p>Live betting odds from all sportsbooks.</p>
+    </div>
+
+    <div id="chat" class="tab">
+      <h2>Community Chat</h2>
+      <p>Chat interface and messages will be live soon.</p>
+    </div>
+  </main>
+
+  <script src="assets/js/dashboard.js"></script>
+</body>
+</html>
