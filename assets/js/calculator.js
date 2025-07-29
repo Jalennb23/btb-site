@@ -1,6 +1,4 @@
-// calculator.js
-
-// ===== Calculator Logic =====
+// ===== Calculator Logic with Pulse Effect =====
 
 // Convert American odds to decimal odds
 function americanToDecimal(odds) {
@@ -17,7 +15,7 @@ function calculateFromStake1() {
   let stake1 = parseFloat(document.getElementById("stake1").value) || 0;
 
   if (!odds1 || !odds2 || stake1 <= 0) {
-    document.getElementById("result").textContent = "Profit: $0.00";
+    resetResult();
     return;
   }
 
@@ -34,7 +32,7 @@ function calculateFromStake2() {
   let stake2 = parseFloat(document.getElementById("stake2").value) || 0;
 
   if (!odds1 || !odds2 || stake2 <= 0) {
-    document.getElementById("result").textContent = "Profit: $0.00";
+    resetResult();
     return;
   }
 
@@ -47,6 +45,8 @@ function calculateFromStake2() {
 
 // Core profit calculation
 function calculateProfit(stake1, stake2, odds1, odds2) {
+  const resultEl = document.getElementById("result");
+
   // Potential returns
   let return1 = stake1 * odds1;
   let return2 = stake2 * odds2;
@@ -57,12 +57,21 @@ function calculateProfit(stake1, stake2, odds1, odds2) {
 
   // Detect if arbitrage exists
   if (profitIf1Wins > 0 && profitIf2Wins > 0) {
-    document.getElementById("result").textContent =
+    resultEl.textContent =
       `Arb Profit: $${Math.min(profitIf1Wins, profitIf2Wins).toFixed(2)}`;
-    document.getElementById("result").style.color = "#4caf50";
+    resultEl.style.color = "#4caf50";
+    resultEl.classList.add("pulse-green");
   } else {
-    document.getElementById("result").textContent =
+    resultEl.textContent =
       `No Arb (Profit if 1 wins: $${profitIf1Wins.toFixed(2)}, if 2 wins: $${profitIf2Wins.toFixed(2)})`;
-    document.getElementById("result").style.color = "#ff5252";
+    resultEl.style.color = "#ff5252";
+    resultEl.classList.remove("pulse-green");
   }
+}
+
+function resetResult() {
+  const resultEl = document.getElementById("result");
+  resultEl.textContent = "Profit: $0.00";
+  resultEl.style.color = "#fff";
+  resultEl.classList.remove("pulse-green");
 }
