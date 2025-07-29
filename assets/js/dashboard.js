@@ -1,59 +1,31 @@
-function calculate() {
-  const odds1 = parseFloat(document.getElementById('odds1').value);
-  const odds2 = parseFloat(document.getElementById('odds2').value);
-  const stake = parseFloat(document.getElementById('stake').value);
+// dashboard.js
 
-  if (isNaN(odds1) || isNaN(odds2) || isNaN(stake)) {
-    document.getElementById('result').innerText = 'Please enter valid numbers.';
-    return;
-  }
+async function fetchArbs() {
+  try {
+    // Example OddsAPI endpoint (replace with your key & params)
+    const res = await fetch("https://api.the-odds-api.com/v4/sports/upcoming/odds/?apiKey=YOUR_API_KEY&regions=us");
+    const data = await res.json();
 
-  const totalInverse = (1 / odds1) + (1 / odds2);
-  const bet1 = stake / (1 + (odds1 / odds2));
-  const bet2 = stake - bet1;
-  const profit = Math.min(bet1 * odds1, bet2 * odds2) - stake;
+    // Go through arb cards on the page
+    document.querySelectorAll(".arb-card").forEach((card, i) => {
+      const market = data[i]; // temp match card to API record
+      if (!market) return;
 
-  document.getElementById('result').innerHTML =
-    `Bet 1: $${bet1.toFixed(2)}<br>Bet 2: $${bet2.toFixed(2)}<br>Profit: $${profit.toFixed(2)}`;
-}
+      // if OddsAPI status is suspended/closed
+      if (market.status === "suspended" || market.status === "closed") {
+        card.classList.add("closed");
+      } else {
+        card.classList.remove("closed");
+      }
+    });
 
-window.onload = () => showTab('calculator');
-function showTab(tabId) {
-  const tabs = document.querySelectorAll('.tab');
-  const buttons = document.querySelectorAll('nav button');
-
-  // Hide all tab content
-  tabs.forEach(tab => {
-    tab.style.display = 'none';
-    tab.classList.remove('active');
-  });
-
-  // Show the selected tab content
-  const activeTab = document.getElementById(tabId);
-  if (activeTab) {
-    activeTab.style.display = 'block';
-    activeTab.classList.add('active');
-  }
-
-  // Remove 'active' class from all buttons
-  buttons.forEach(btn => btn.classList.remove('active'));
-
-  // Add 'active' class to the clicked button
-  const activeButton = document.querySelector(`nav button[data-tab="${tabId}"]`);
-  if (activeButton) {
-    activeButton.classList.add('active');
+  } catch (err) {
+    console.error("Error fetching odds:", err);
   }
 }
-function trackBet(bookId, amount) {
-  const input = document.getElementById(bookId);
-  const current = parseFloat(input.value) || 0;
-  const newBalance = current - amount;
 
-  if (newBalance < 0) {
-    alert("Insufficient balance on " + bookId.replace('Balance', ''));
-    return;
-  }
+// Run once when page loads
+fetchArbs();
 
-  input.value = newBalance.toFixed(2);
-  alert(`$${amount.toFixed(2)} deducted from ${bookId.replace('Balance', '')}`);
-}
+// Refresh every 5 seconds
+setInterval(fetchArbs, 5000);
