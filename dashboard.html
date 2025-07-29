@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <title>BTB Dashboard</title>
   <link rel="stylesheet" href="assets/css/dashboard.css" />
-  <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
   <div class="dashboard-container">
@@ -18,55 +17,58 @@
         <button class="tab-btn" data-tab="chat" onclick="showTab('chat')">Chat</button>
       </nav>
     </aside>
-<main class="main-panel">
- <div id="calculator" class="tab" style="display: none;">
-  <h2>Arbitrage Calculator</h2>
-  <p>Enter odds, stakes, and optional lines:</p>
 
-  <label>Odds 1: <input type="number" id="odds1" step="0.01" /></label><br>
-  <label>Odds 2: <input type="number" id="odds2" step="0.01" /></label><br><br>
+    <main class="main-panel">
+      <section id="calculator" class="tab">
+        <h2>Arbitrage Calculator</h2>
+        <p>Enter odds and either stake amount:</p>
+        <label>Odds 1: <input type="number" id="odds1" step="0.01" /></label>
+        <label>Odds 2: <input type="number" id="odds2" step="0.01" /></label><br>
+        <label>Stake 1: <input type="number" id="stake1" step="0.01" oninput="calculateFromStake1()" /></label>
+        <label>Stake 2: <input type="number" id="stake2" step="0.01" oninput="calculateFromStake2()" /></label>
+        <div id="result"></div>
+      </section>
 
-  <label>Line 1: <input type="number" id="line1" step="0.1" /></label><br>
-  <label>Line 2: <input type="number" id="line2" step="0.1" /></label><br><br>
+      <section id="ev" class="tab">
+        <h2>+EV Feed</h2>
+        <div class="feed-grid">
+          <div class="feed-card">+EV Bet Example 1</div>
+          <div class="feed-card">+EV Bet Example 2</div>
+        </div>
+      </section>
 
-  <label>Stake 1: <input type="number" id="stake1" step="0.01" oninput="calculateFromStake1()" /></label><br>
-  <label>Stake 2: <input type="number" id="stake2" step="0.01" oninput="calculateFromStake2()" /></label><br><br>
+      <section id="arb" class="tab">
+        <h2>Arbitrage Opportunities</h2>
+        <div class="feed-grid">
+          <div class="feed-card">Arb Example 1</div>
+          <div class="feed-card">Arb Example 2</div>
+        </div>
+      </section>
 
-  <div id="result"></div>
-</div>
+      <section id="live" class="tab">
+        <h2>Live Odds</h2>
+        <div class="feed-grid">
+          <div class="feed-card">Live Game 1</div>
+          <div class="feed-card">Live Game 2</div>
+        </div>
+      </section>
 
-  
-<div id="ev" class="tab" style="display: none;">
-  <h2>+EV Feed</h2>
-  <p>Pregame and live +EV bets will appear here.</p>
-</div>
-
-<div id="arb" class="tab" style="display: none;">
-  <h2>Arbitrage Opportunities</h2>
-  <p>Auto-refreshed arbitrage feed will show here.</p>
-</div>
-
-<div id="live" class="tab" style="display: none;">
-  <h2>Live Odds</h2>
-  <p>Live game odds will populate in this tab.</p>
-</div>
-  
-  <div id="chat" class="tab" style="display: none;">
-    <h2>Live Chat</h2>
-    <div id="chat-window">
-      <p><strong>@User1:</strong> This platform is 🔥</p>
-      <p><strong>@User2:</strong> Can’t wait for kickoff</p>
-    </div>
-    
-    <div id="chat-input">
-      <input type="text" placeholder="Type your message..." />
-      <button>Send</button>
-    </div>
-    
+      <section id="chat" class="tab">
+        <h2>Live Chat</h2>
+        <div id="chat-window">
+          <p><strong>@User1:</strong> This platform is 🔥</p>
+          <p><strong>@User2:</strong> Can’t wait for kickoff</p>
+        </div>
+        <div id="chat-input">
+          <input type="text" placeholder="Type your message..." />
+          <button>Send</button>
+        </div>
+      </section>
+    </main>
   </div>
-</main>
-  </div>
+
   <script src="assets/js/dashboard.js"></script>
   <script src="assets/js/calculator.js"></script>
 </body>
 </html>
+
