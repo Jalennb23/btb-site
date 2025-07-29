@@ -44,3 +44,16 @@ function showTab(tabId) {
     activeButton.classList.add('active');
   }
 }
+function trackBet(bookId, amount) {
+  const input = document.getElementById(bookId);
+  const current = parseFloat(input.value) || 0;
+  const newBalance = current - amount;
+
+  if (newBalance < 0) {
+    alert("Insufficient balance on " + bookId.replace('Balance', ''));
+    return;
+  }
+
+  input.value = newBalance.toFixed(2);
+  alert(`$${amount.toFixed(2)} deducted from ${bookId.replace('Balance', '')}`);
+}
