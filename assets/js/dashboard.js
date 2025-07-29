@@ -58,9 +58,8 @@ document.addEventListener("DOMContentLoaded", () => {
   // 🔹 OddsAPI Fetcher
   async function fetchArbs() {
     try {
-      const res = await fetch(
-        "https://api.the-odds-api.com/v4/sports/upcoming/odds/?apiKey=de315d01b18dc6e2e5dc488d219fce01&regions=us"
-      );
+     const res = await fetch("https://api.the-odds-api.com/v4/sports/upcoming/odds?apiKey=de315d01b18dc6e2e5dc488d219fce01&regions=us");
+
      const data = await res.json();
 console.log("✅ API Response:", data); // debug log
 
