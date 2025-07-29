@@ -1,93 +1,68 @@
 // calculator.js
 
-function convertAmericanToDecimal(odds) {
-  if (odds > 0) {
-    return (odds / 100) + 1;
-  } else {
-    return (100 / Math.abs(odds)) + 1;
-  }
+// ===== Calculator Logic =====
+
+// Convert American odds to decimal odds
+function americanToDecimal(odds) {
+  odds = parseFloat(odds);
+  if (isNaN(odds) || odds === 0) return null;
+  if (odds > 0) return 1 + odds / 100;
+  return 1 + 100 / Math.abs(odds);
 }
 
+// Calculate profit and adjust other side dynamically
 function calculateFromStake1() {
-  const odds1 = parseFloat(document.getElementById('odds1').value);
-  const odds2 = parseFloat(document.getElementById('odds2').value);
-  const stake1 = parseFloat(document.getElementById('stake1').value);
-  const line1 = parseFloat(document.getElementById('line1')?.value || 0);
-  const line2 = parseFloat(document.getElementById('line2')?.value || 0);
+  let odds1 = americanToDecimal(document.getElementById("odds1").value || document.getElementById("odds1Display").textContent);
+  let odds2 = americanToDecimal(document.getElementById("odds2").value || document.getElementById("odds2Display").textContent);
+  let stake1 = parseFloat(document.getElementById("stake1").value) || 0;
 
-  if (isNaN(odds1) || isNaN(odds2) || isNaN(stake1)) {
-    document.getElementById('result').innerText = 'Please enter valid numbers.';
+  if (!odds1 || !odds2 || stake1 <= 0) {
+    document.getElementById("result").textContent = "Profit: $0.00";
     return;
   }
 
-  const decOdds1 = convertAmericanToDecimal(odds1);
-  const decOdds2 = convertAmericanToDecimal(odds2);
+  // Calculate required stake2 to balance
+  let stake2 = (stake1 * odds1) / odds2;
+  document.getElementById("stake2").value = stake2.toFixed(2);
 
-  const stake2 = (stake1 * decOdds1) / decOdds2;
-  const totalStake = stake1 + stake2;
-  const profit = Math.min((stake1 * decOdds1), (stake2 * decOdds2)) - totalStake;
-  const middleDetected = (line1 && line2 && line1 < line2);
-
-  document.getElementById('stake2').value = stake2.toFixed(2);
-  let resultHTML = `
-    Stake 1: $${stake1.toFixed(2)}<br>
-    Stake 2: $${stake2.toFixed(2)}<br>
-    Profit: <span style="color:${profit >= 0 ? 'green' : 'red'}">$${profit.toFixed(2)}</span><br>
-    ${middleDetected ? '<span style="color:orange">Middle Opportunity Detected!</span>' : ''}
-  `;
-  document.getElementById('result').innerHTML = resultHTML;
+  calculateProfit(stake1, stake2, odds1, odds2);
 }
 
 function calculateFromStake2() {
-  const odds1 = parseFloat(document.getElementById('odds1').value);
-  const odds2 = parseFloat(document.getElementById('odds2').value);
-  const stake2 = parseFloat(document.getElementById('stake2').value);
-  const line1 = parseFloat(document.getElementById('line1')?.value || 0);
-  const line2 = parseFloat(document.getElementById('line2')?.value || 0);
+  let odds1 = americanToDecimal(document.getElementById("odds1").value || document.getElementById("odds1Display").textContent);
+  let odds2 = americanToDecimal(document.getElementById("odds2").value || document.getElementById("odds2Display").textContent);
+  let stake2 = parseFloat(document.getElementById("stake2").value) || 0;
 
-  if (isNaN(odds1) || isNaN(odds2) || isNaN(stake2)) {
-    document.getElementById('result').innerText = 'Please enter valid numbers.';
+  if (!odds1 || !odds2 || stake2 <= 0) {
+    document.getElementById("result").textContent = "Profit: $0.00";
     return;
   }
 
-  const decOdds1 = convertAmericanToDecimal(odds1);
-  const decOdds2 = convertAmericanToDecimal(odds2);
+  // Calculate required stake1 to balance
+  let stake1 = (stake2 * odds2) / odds1;
+  document.getElementById("stake1").value = stake1.toFixed(2);
 
-  const stake1 = (stake2 * decOdds2) / decOdds1;
-  const totalStake = stake1 + stake2;
-  const profit = Math.min((stake1 * decOdds1), (stake2 * decOdds2)) - totalStake;
-  const middleDetected = (line1 && line2 && line1 < line2);
-
-  document.getElementById('stake1').value = stake1.toFixed(2);
-  let resultHTML = `
-    Stake 1: $${stake1.toFixed(2)}<br>
-    Stake 2: $${stake2.toFixed(2)}<br>
-    Profit: <span style="color:${profit >= 0 ? 'green' : 'red'}">$${profit.toFixed(2)}</span><br>
-    ${middleDetected ? '<span style="color:orange">Middle Opportunity Detected!</span>' : ''}
-  `;
-  document.getElementById('result').innerHTML = resultHTML;
+  calculateProfit(stake1, stake2, odds1, odds2);
 }
 
-window.onload = () => showTab('calculator');
+// Core profit calculation
+function calculateProfit(stake1, stake2, odds1, odds2) {
+  // Potential returns
+  let return1 = stake1 * odds1;
+  let return2 = stake2 * odds2;
 
-function showTab(tabId) {
-  const tabs = document.querySelectorAll('.tab');
-  const buttons = document.querySelectorAll('nav button');
+  // Net results if each side wins
+  let profitIf1Wins = return1 - (stake1 + stake2);
+  let profitIf2Wins = return2 - (stake1 + stake2);
 
-  tabs.forEach(tab => {
-    tab.style.display = 'none';
-    tab.classList.remove('active');
-  });
-
-  const activeTab = document.getElementById(tabId);
-  if (activeTab) {
-    activeTab.style.display = 'block';
-    activeTab.classList.add('active');
-  }
-
-  buttons.forEach(btn => btn.classList.remove('active'));
-  const activeButton = document.querySelector(`nav button[data-tab="${tabId}"]`);
-  if (activeButton) {
-    activeButton.classList.add('active');
+  // Detect if arbitrage exists
+  if (profitIf1Wins > 0 && profitIf2Wins > 0) {
+    document.getElementById("result").textContent =
+      `Arb Profit: $${Math.min(profitIf1Wins, profitIf2Wins).toFixed(2)}`;
+    document.getElementById("result").style.color = "#4caf50";
+  } else {
+    document.getElementById("result").textContent =
+      `No Arb (Profit if 1 wins: $${profitIf1Wins.toFixed(2)}, if 2 wins: $${profitIf2Wins.toFixed(2)})`;
+    document.getElementById("result").style.color = "#ff5252";
   }
 }
