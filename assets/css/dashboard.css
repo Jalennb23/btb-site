@@ -358,5 +358,43 @@ html, body {
   padding: 10px;
   border-left: 1px solid #444;
 }
+/* Force the dashboard to fill the screen */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.dashboard {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr; /* left / center / right */
+  height: 100vh; /* full screen height */
+  overflow: hidden; /* prevent page scroll */
+}
+
+/* Left feed scrolls independently */
+.left-feed {
+  overflow-y: auto;
+  height: 100vh;
+  padding: 10px;
+  border-right: 1px solid #444;
+}
+
+/* Calculator center stays fixed */
+.center-calc {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  overflow: hidden;
+}
+
+/* Right column also scrolls independently */
+.right-books {
+  overflow-y: auto;
+  height: 100vh;
+  padding: 10px;
+  border-left: 1px solid #444;
+}
 
 
