@@ -19,14 +19,88 @@
     </aside>
 
     <main class="main-panel">
-      <section id="calculator" class="tab">
-        <h2>Arbitrage Calculator</h2>
-        <p>Enter odds and either stake amount:</p>
-        <label>Odds 1: <input type="number" id="odds1" step="0.01" /></label>
-        <label>Odds 2: <input type="number" id="odds2" step="0.01" /></label><br>
-        <label>Stake 1: <input type="number" id="stake1" step="0.01" oninput="calculateFromStake1()" /></label>
-        <label>Stake 2: <input type="number" id="stake2" step="0.01" oninput="calculateFromStake2()" /></label>
-        <div id="result"></div>
+      <!-- Sportsbook Balances Panel -->
+      <section class="sportsbook-balances">
+        <h2>Sportsbook Balances</h2>
+        <div class="sportsbook-grid">
+          <div class="book-tile">
+            <img src="assets/logos/fanduel.png" alt="FanDuel" />
+            <span>FanDuel</span>
+            <input type="number" id="fanduelBalance" placeholder="$0.00" />
+          </div>
+          <div class="book-tile">
+            <img src="assets/logos/draftkings.png" alt="DraftKings" />
+            <span>DraftKings</span>
+            <input type="number" id="draftkingsBalance" placeholder="$0.00" />
+          </div>
+          <div class="book-tile">
+            <img src="assets/logos/caesars.png" alt="Caesars" />
+            <span>Caesars</span>
+            <input type="number" id="caesarsBalance" placeholder="$0.00" />
+          </div>
+          <div class="book-tile">
+            <img src="assets/logos/betmgm.png" alt="BetMGM" />
+            <span>BetMGM</span>
+            <input type="number" id="betmgmBalance" placeholder="$0.00" />
+          </div>
+          <div class="book-tile">
+            <img src="assets/logos/betonline.png" alt="BetOnline" />
+            <span>BetOnline</span>
+            <input type="number" id="betonlineBalance" placeholder="$0.00" />
+          </div>
+          <div class="book-tile">
+            <img src="assets/logos/bovada.png" alt="Bovada" />
+            <span>Bovada</span>
+            <input type="number" id="bovadaBalance" placeholder="$0.00" />
+          </div>
+          <div class="book-tile">
+            <img src="assets/logos/fanatics.png" alt="Fanatics" />
+            <span>Fanatics</span>
+            <input type="number" id="fanaticsBalance" placeholder="$0.00" />
+          </div>
+          <div class="book-tile">
+            <img src="assets/logos/bet365.png" alt="Bet365" />
+            <span>Bet365</span>
+            <input type="number" id="bet365Balance" placeholder="$0.00" />
+          </div>
+          <div class="book-tile">
+            <img src="assets/logos/betrivers.png" alt="BetRivers" />
+            <span>BetRivers</span>
+            <input type="number" id="betriversBalance" placeholder="$0.00" />
+          </div>
+          <div class="book-tile">
+            <img src="assets/logos/espnbet.png" alt="ESPN Bet" />
+            <span>ESPN Bet</span>
+            <input type="number" id="espnbetBalance" placeholder="$0.00" />
+          </div>
+        </div>
+      </section>
+
+      <section id="calculator" class="tab active">
+        <div class="center-panel">
+          <div class="market-box">
+            <div class="market-column">
+              <span class="market-label">Over</span>
+              <span class="market-odds" id="odds1Display">+106</span>
+              <input type="number" id="odds1" placeholder="Odds 1" oninput="calculateFromStake1()" />
+              <input type="number" id="stake1" placeholder="Stake 1" oninput="calculateFromStake1()" />
+            </div>
+
+            <div class="center-circle">
+              <span class="game-info">Cleveland @ KC</span>
+              <span class="line">Total Hits <strong>6.5</strong></span>
+              <span class="game-time">1:40 PM</span>
+              <div id="result">Profit: $0.00</div>
+            </div>
+
+            <div class="market-column">
+              <span class="market-label">Under</span>
+              <span class="market-odds" id="odds2Display">-110</span>
+              <input type="number" id="odds2" placeholder="Odds 2" oninput="calculateFromStake2()" />
+              <input type="number" id="stake2" placeholder="Stake 2" oninput="calculateFromStake2()" />
+            </div>
+          </div>
+        </div>
       </section>
 
       <section id="ev" class="tab">
@@ -71,4 +145,5 @@
   <script src="assets/js/calculator.js"></script>
 </body>
 </html>
+
 
