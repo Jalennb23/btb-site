@@ -297,3 +297,8 @@ body {
   50%  { transform: scale(1.05); }
   100% { transform: scale(1); }
 }
+.center-circle {
+  box-shadow: 0 0 15px rgba(0, 255, 102, 0.6);
+  border-radius: 50%;
+  transition: box-shadow 0.3s ease-in-out;
+}
