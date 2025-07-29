@@ -37,13 +37,24 @@
       </div>
     </aside>
 
-    <!-- Center Column: Calculator -->
-    <main class="center-calc">
-      <div class="calc-box">
-        <!-- Odds/stakes -->
-        <div class="side">+100<br>$0</div>
-        <div class="center-circle">Profit: $0</div>
-        <div class="side">+100<br>$0</div>
+ <!-- Center Column: Calculator -->
+<main class="center-calc">
+  <div class="calc-box">
+    <!-- Odds/stakes -->
+    <div class="side" id="sideA">+100<br>$0</div>
+    <div class="center-circle" id="profitCircle">Profit: $0</div>
+    <div class="side" id="sideB">-100<br>$0</div>
+
+    <!-- Controls -->
+    <div class="calc-controls">
+      <div class="stake-input">
+        <label for="defaultStake">Default Stake:</label>
+        <input type="number" id="defaultStake" value="100" min="1">
+      </div>
+      <button class="track-btn">Track</button>
+    </div>
+  </div>
+</main>
 
         <!-- Default Stake Input + Track Button -->
 <div class="calc-controls">
