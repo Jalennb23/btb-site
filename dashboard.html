@@ -13,8 +13,8 @@
 
     <!-- Left Column: Arbitrage Feed -->
     <aside class="left-feed">
-      <!-- Example arb card structure -->
-      <div class="arb-card">
+      <!-- Example arb card with data attributes -->
+      <div class="arb-card" data-odds-a="+110" data-odds-b="-105">
         <div class="arb-header">
           <span class="arb-percent">+3.2% Arb</span>
           <span class="arb-status">Live</span>
@@ -25,7 +25,7 @@
         <div class="arb-bar"></div>
       </div>
 
-      <div class="arb-card">
+      <div class="arb-card" data-odds-a="-120" data-odds-b="+115">
         <div class="arb-header">
           <span class="arb-percent">+2.7% Arb</span>
           <span class="arb-status">Live</span>
@@ -37,34 +37,23 @@
       </div>
     </aside>
 
- <!-- Center Column: Calculator -->
-<main class="center-calc">
-  <div class="calc-box">
-    <!-- Odds/stakes -->
-    <div class="side" id="sideA">+100<br>$0</div>
-    <div class="center-circle" id="profitCircle">Profit: $0</div>
-    <div class="side" id="sideB">-100<br>$0</div>
+    <!-- Center Column: Calculator -->
+    <main class="center-calc">
+      <div class="calc-box">
+        <!-- Odds/stakes -->
+        <div class="side" id="sideA">+100<br>$0</div>
+        <div class="center-circle" id="profitCircle">Profit: $0</div>
+        <div class="side" id="sideB">-100<br>$0</div>
 
-    <!-- Controls -->
-    <div class="calc-controls">
-      <div class="stake-input">
-        <label for="defaultStake">Default Stake:</label>
-        <input type="number" id="defaultStake" value="100" min="1">
+        <!-- Controls -->
+        <div class="calc-controls">
+          <div class="stake-input">
+            <label for="defaultStake">Default Stake:</label>
+            <input type="number" id="defaultStake" value="100" min="1">
+          </div>
+          <button class="track-btn">Track</button>
+        </div>
       </div>
-      <button class="track-btn">Track</button>
-    </div>
-  </div>
-</main>
-
-        <!-- Default Stake Input + Track Button -->
-<div class="calc-controls">
-  <div class="stake-input">
-    <label for="defaultStake">Default Stake:</label>
-    <input type="number" id="defaultStake" value="100" min="1">
-  </div>
-  <button class="track-btn">Track</button>
-</div>
-
     </main>
 
     <!-- Right Column: Sportsbooks -->
