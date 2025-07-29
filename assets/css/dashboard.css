@@ -396,5 +396,24 @@ html, body {
   padding: 10px;
   border-left: 1px solid #444;
 }
+/* 🔹 Make dashboard fill screen height */
+.dashboard {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr; /* left | center | right */
+  height: 100vh; /* full screen height */
+  overflow: hidden; /* prevent body scroll */
+}
+
+/* 🔹 Left arb feed scrolls */
+.left-feed {
+  overflow-y: auto;
+  padding: 10px;
+}
+
+/* 🔹 Right sportsbook panel scrolls */
+.right-books {
+  overflow-y: auto;
+  padding: 10px;
+}
 
 
