@@ -5,48 +5,52 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BTB Dashboard</title>
   <link rel="stylesheet" href="assets/css/dashboard.css">
-  <link rel="icon" href="assets/logos/btb.ico">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
 
   <!-- 🔥 Dashboard Layout -->
   <div class="dashboard">
 
-   <!-- Left Column: Arbitrage Feed -->
-<aside class="left-feed">
-  <div class="arb-card">
-    <div class="arb-header">
-      <span class="arb-percent">3.5% Arb</span>
-      <span class="arb-status">Live</span>
-    </div>
-    <div class="arb-bar"></div>
-  </div>
+    <!-- Left Column: Arbitrage Feed -->
+    <aside class="left-feed">
+      <!-- Example arb card structure -->
+      <div class="arb-card">
+        <div class="arb-header">
+          <span class="arb-percent">+3.2% Arb</span>
+          <span class="arb-status">Live</span>
+        </div>
+        <div>Game: Lakers vs Celtics</div>
+        <div>Home: +110</div>
+        <div>Away: -105</div>
+        <div class="arb-bar"></div>
+      </div>
 
-  <div class="arb-card">
-    <div class="arb-header">
-      <span class="arb-percent">2.8% Arb</span>
-      <span class="arb-status">Live</span>
-    </div>
-    <div class="arb-bar"></div>
-  </div>
-
-  <div class="arb-card">
-    <div class="arb-header">
-      <span class="arb-percent">4.1% Arb</span>
-      <span class="arb-status">Live</span>
-    </div>
-    <div class="arb-bar"></div>
-  </div>
-</aside>
-
+      <div class="arb-card">
+        <div class="arb-header">
+          <span class="arb-percent">+2.7% Arb</span>
+          <span class="arb-status">Live</span>
+        </div>
+        <div>Game: Yankees vs Red Sox</div>
+        <div>Home: -120</div>
+        <div>Away: +115</div>
+        <div class="arb-bar"></div>
+      </div>
+    </aside>
 
     <!-- Center Column: Calculator -->
     <main class="center-calc">
       <div class="calc-box">
+        <!-- Odds/stakes -->
         <div class="side">+100<br>$0</div>
         <div class="center-circle">Profit: $0</div>
         <div class="side">+100<br>$0</div>
+
+        <!-- Default Stake Input -->
+        <div class="stake-input">
+          <label for="defaultStake">Default Stake:</label>
+          <input type="number" id="defaultStake" value="100" min="1">
+        </div>
+
         <button class="track-btn">Track</button>
       </div>
     </main>
@@ -64,18 +68,9 @@
 
   </div>
   <!-- End Dashboard -->
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  const feed = document.querySelector(".left-feed");
-  const cards = Array.from(feed.querySelectorAll(".arb-card"));
 
-  cards.sort((a, b) => parseFloat(b.dataset.arb) - parseFloat(a.dataset.arb));
-  cards.forEach(card => feed.appendChild(card));
-});
-</script>
-
-  <script src="assets/js/calculator.js"></script>
+  <!-- Scripts -->
   <script src="assets/js/dashboard.js"></script>
-
 </body>
 </html>
+
