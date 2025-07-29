@@ -236,3 +236,13 @@ body {
   border-radius: 6px;
   cursor: pointer;
 }
+/* Pulse effect for Arb Profit */
+.pulse-green {
+  animation: greenPulse 1.5s infinite;
+}
+
+@keyframes greenPulse {
+  0% { text-shadow: 0 0 4px #00ff00, 0 0 8px #00ff00; }
+  50% { text-shadow: 0 0 12px #00ff00, 0 0 20px #00ff00; }
+  100% { text-shadow: 0 0 4px #00ff00, 0 0 8px #00ff00; }
+}
