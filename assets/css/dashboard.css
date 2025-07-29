@@ -276,5 +276,45 @@ body {
   box-shadow: 0 0 20px #00ff66;
   transform: scale(1.05);
 }
+/* === Calculator Controls (Stake + Track Button) === */
+.calc-controls {
+  position: absolute;
+  bottom: -90px; /* sits below calculator */
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Stake Input Style */
+.stake-input {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #111;
+  padding: 10px 15px;
+  border-radius: 8px;
+  border: 2px solid #00ff66;
+  box-shadow: 0 0 10px #00ff66;
+}
+
+.stake-input label {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.stake-input input {
+  width: 80px;
+  padding: 6px 10px;
+  background: #000;
+  color: #00ff66;
+  border: 2px solid #00ff66;
+  border-radius: 6px;
+  font-weight: bold;
+  text-align: center;
+  box-shadow: 0 0 8px #00ff66;
+}
 
 
