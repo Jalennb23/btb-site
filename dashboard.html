@@ -4,81 +4,242 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BTB Dashboard</title>
-  <link rel="stylesheet" href="assets/css/dashboard.css">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      background: #0b0b0b;
+      color: white;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .left-panel, .center-panel, .right-panel {
+      padding: 10px;
+      box-sizing: border-box;
+    }
+
+    .left-panel {
+      width: 25%;
+      overflow-y: auto;
+      border-right: 2px solid #00ff99;
+    }
+
+    .center-panel {
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      overflow-y: auto;
+    }
+
+    .right-panel {
+      width: 25%;
+      border-left: 2px solid #00ff99;
+    }
+
+    /* Arb Cards */
+    .arb-card {
+      background: #111;
+      border: 1px solid #00ff99;
+      border-radius: 8px;
+      padding: 10px;
+      margin-bottom: 10px;
+      box-shadow: 0 0 8px #00ff99;
+    }
+
+    /* Logo Section */
+    .btb-logo-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 20px 0;
+    }
+
+    .btb-logo {
+      width: 120px;
+      height: auto;
+      margin-bottom: 5px;
+    }
+
+    .btb-subtitle {
+      font-size: 18px;
+      color: #00ff99;
+      text-shadow: 0 0 8px #00ff99;
+      font-weight: bold;
+    }
+
+    /* Calculator */
+    .calculator {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: #111;
+      border-radius: 12px;
+      padding: 20px;
+      margin-top: 20px;
+      box-shadow: 0 0 12px #00ff99;
+    }
+
+    .calc-circle {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 2px solid #00ff99;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      box-shadow: 0 0 12px #00ff99;
+      margin: 15px 0;
+    }
+
+    .calc-btn {
+      background: transparent;
+      border: 2px solid #00ff99;
+      padding: 10px 20px;
+      margin: 5px;
+      border-radius: 6px;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 0 8px #00ff99;
+    }
+
+    .calc-btn:hover {
+      background: #00ff99;
+      color: black;
+    }
+
+    /* Sportsbook panel */
+    .sportsbook-panel {
+      margin-top: 20px;
+      background: #111;
+      border-radius: 8px;
+      padding: 10px;
+      box-shadow: 0 0 12px #00ff99;
+    }
+
+    .book-tile {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border: 1px solid #00ff99;
+      border-radius: 6px;
+      padding: 8px;
+      margin-bottom: 8px;
+      box-shadow: 0 0 6px #00ff99;
+    }
+
+    .total-balance {
+      margin-top: 10px;
+      font-weight: bold;
+      text-align: right;
+      color: #00ff99;
+      text-shadow: 0 0 6px #00ff99;
+    }
+
+    /* Scrollbar styling */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0b0b0b;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #00ff99;
+      border-radius: 10px;
+      box-shadow: 0 0 6px #00ff99;
+    }
+  </style>
 </head>
 <body>
 
-  <!-- 🔥 Dashboard Layout -->
-  <div class="dashboard">
-
-    <!-- Left Column: Arbitrage Feed -->
-    <aside class="left-feed">
-      <!-- Example arb card with data attributes -->
-      <div class="arb-card" data-odds-a="+110" data-odds-b="-105">
-        <div class="arb-header">
-          <span class="arb-percent">+3.2% Arb</span>
-          <span class="arb-status">Live</span>
-        </div>
-        <div>Game: Lakers vs Celtics</div>
-        <div>Home: +110</div>
-        <div>Away: -105</div>
-        <div class="arb-bar"></div>
-      </div>
-
-      <div class="arb-card" data-odds-a="-120" data-odds-b="+115">
-        <div class="arb-header">
-          <span class="arb-percent">+2.7% Arb</span>
-          <span class="arb-status">Live</span>
-        </div>
-        <div>Game: Yankees vs Red Sox</div>
-        <div>Home: -120</div>
-        <div>Away: +115</div>
-        <div class="arb-bar"></div>
-      </div>
-    </aside>
-
-<!-- Logo above calculator -->
-<div class="btb-logo">
-  <img src="assets/logos/btb.png" alt="BTB Logo">
-  <p>Beat The Books</p>
-</div>
-
-    
-    <!-- Center Column: Calculator -->
-    <main class="center-calc">
-      <div class="calc-box">
-        <!-- Odds/stakes -->
-        <div class="side" id="sideA">+100<br>$0</div>
-        <div class="center-circle" id="profitCircle">Profit: $0</div>
-        <div class="side" id="sideB">-100<br>$0</div>
-
-        <!-- Controls -->
-        <div class="calc-controls">
-          <div class="stake-input">
-            <label for="defaultStake">Default Stake:</label>
-            <input type="number" id="defaultStake" value="100" min="1">
-          </div>
-          <button class="track-btn">Track</button>
-        </div>
-      </div>
-    </main>
-
-    <!-- Right Column: Sportsbooks -->
-    <aside class="right-books">
-      <h2>Sportsbooks</h2>
-      <div class="book-list">
-        <div class="book"><span>FanDuel</span> <span>$500</span></div>
-        <div class="book"><span>DraftKings</span> <span>$300</span></div>
-        <div class="book"><span>Caesars</span> <span>$200</span></div>
-      </div>
-      <div class="total-box">Total: $1000</div>
-    </aside>
-
+  <!-- Left Panel -->
+  <div class="left-panel" id="arb-container">
+    <!-- Arb cards auto-populate here -->
   </div>
-  <!-- End Dashboard -->
 
-  <!-- Scripts -->
-  <script src="assets/js/dashboard.js"></script>
+  <!-- Center Panel -->
+  <div class="center-panel">
+    <div class="btb-logo-container">
+      <img src="assets/logos/btb.png" alt="BTB Logo" class="btb-logo">
+      <div class="btb-subtitle">Beat The Books</div>
+    </div>
+
+    <div class="calculator">
+      <button class="calc-btn">+100<br>$0</button>
+      <div class="calc-circle">Profit: $0</div>
+      <button class="calc-btn">-100<br>$0</button>
+      <div style="margin-top: 15px;">
+        <label for="stake">Default Stake:</label>
+        <input type="number" id="stake" value="100">
+      </div>
+      <button class="calc-btn">Track</button>
+    </div>
+  </div>
+
+  <!-- Right Panel -->
+  <div class="right-panel">
+    <div class="sportsbook-panel">
+      <h3>Sportsbooks</h3>
+      <div class="book-tile"><span>FanDuel</span><span>$500</span></div>
+      <div class="book-tile"><span>DraftKings</span><span>$300</span></div>
+      <div class="book-tile"><span>Caesars</span><span>$200</span></div>
+      <div class="total-balance">Total: $1000</div>
+    </div>
+  </div>
+
+  <!-- OddsAPI Script -->
+  <script>
+    const API_KEY = "de315d01b18dc6e2e5dc488d219fce01"; // Replace with your OddsAPI key
+    const arbContainer = document.getElementById("arb-container");
+
+    function convertDecimalToAmerican(decimal) {
+      if (decimal >= 2.0) {
+        return "+" + Math.round((decimal - 1) * 100);
+      } else {
+        return "-" + Math.round(100 / (decimal - 1));
+      }
+    }
+
+    async function fetchArbs() {
+      try {
+        const res = await fetch(`https://api.the-odds-api.com/v4/sports/upcoming/odds/?regions=us&markets=h2h&oddsFormat=decimal&apiKey=${API_KEY}`);
+        const data = await res.json();
+
+        arbContainer.innerHTML = "";
+
+        data.slice(0, 10).forEach(game => {
+          if (!game.bookmakers || game.bookmakers.length < 1) return;
+
+          const book = game.bookmakers[0].markets[0].outcomes;
+          if (!book[0] || !book[1]) return;
+
+          const homeOdds = convertDecimalToAmerican(book[0].price);
+          const awayOdds = convertDecimalToAmerican(book[1].price);
+
+          const card = document.createElement("div");
+          card.className = "arb-card";
+          card.innerHTML = `
+            <b>Arb?</b><br>
+            Game: ${game.home_team} vs ${game.away_team} <span style="float:right;">Live</span><br>
+            Home: ${homeOdds}<br>
+            Away: ${awayOdds}
+          `;
+          arbContainer.appendChild(card);
+        });
+
+      } catch (err) {
+        console.error("Error fetching arbs:", err);
+      }
+    }
+
+    fetchArbs();
+    setInterval(fetchArbs, 5000); // Auto-refresh every 5s
+  </script>
+
 </body>
 </html>
-
