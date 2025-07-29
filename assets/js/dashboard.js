@@ -1,101 +1,89 @@
-// dashboard.js
+// === CONFIG ===
+const API_KEY = "de315d01b18dc6e2e5dc488d219fce01"; // <-- replace with your key
+const API_URL = `https://api.the-odds-api.com/v4/sports/upcoming/odds/?regions=us&markets=h2h&apiKey=${API_KEY}`;
 
-document.addEventListener("DOMContentLoaded", () => {
-  const arbCards = document.querySelectorAll(".arb-card");
+// === FETCH ODDS & RENDER ARBS ===
+async function fetchArbs() {
+  try {
+    const res = await fetch(API_URL);
+    const data = await res.json();
+
+    console.log("API Response:", data); // debug
+    renderArbs(data);
+  } catch (err) {
+    console.error("API Fetch Error:", err);
+  }
+}
+
+// === RENDER ARB CARDS ===
+function renderArbs(games) {
+  const feed = document.querySelector(".left-feed");
+  feed.innerHTML = ""; // clear old cards
+
+  games.forEach(game => {
+    if (!game.bookmakers || game.bookmakers.length === 0) return;
+
+    // Grab odds from first bookmaker (expand later)
+    const outcomes = game.bookmakers[0].markets[0].outcomes;
+    const home = outcomes.find(o => o.name === game.home_team);
+    const away = outcomes.find(o => o.name === game.away_team);
+
+    if (!home || !away) return;
+
+    // Create arb card
+    const card = document.createElement("div");
+    card.classList.add("arb-card");
+    card.setAttribute("data-odds-a", home.price);
+    card.setAttribute("data-odds-b", away.price);
+
+    card.innerHTML = `
+      <div class="arb-header">
+        <span class="arb-percent">Arb?</span>
+        <span class="arb-status">Live</span>
+      </div>
+      <div>Game: ${game.home_team} vs ${game.away_team}</div>
+      <div>Home: ${home.price}</div>
+      <div>Away: ${away.price}</div>
+      <div class="arb-bar"></div>
+    `;
+
+    // Attach click → auto-fill calculator
+    card.addEventListener("click", () => {
+      const stake = parseFloat(document.getElementById("defaultStake").value) || 100;
+      fillCalculator(home.price, away.price, stake);
+    });
+
+    feed.appendChild(card);
+  });
+}
+
+// === FILL CALCULATOR ===
+function fillCalculator(oddsA, oddsB, stake) {
   const sideA = document.getElementById("sideA");
   const sideB = document.getElementById("sideB");
   const profitCircle = document.getElementById("profitCircle");
-  const defaultStakeInput = document.getElementById("defaultStake");
 
-  // 🔹 Helper: Calculate implied probability
-  function impliedProbability(odds) {
-    odds = parseInt(odds);
-    if (odds > 0) {
-      return 100 / (odds + 100);
-    } else {
-      return Math.abs(odds) / (Math.abs(odds) + 100);
-    }
-  }
+  const decOddsA = toDecimalOdds(oddsA);
+  const decOddsB = toDecimalOdds(oddsB);
 
-  // 🔹 Helper: Calculate stake + guaranteed profit
-  function calculateStakes(oddsA, oddsB, stake) {
-    const probA = impliedProbability(oddsA);
-    const probB = impliedProbability(oddsB);
+  // Stake allocation formula
+  const stakeA = (stake * decOddsB) / (decOddsA + decOddsB);
+  const stakeB = stake - stakeA;
 
-    const totalProb = probA + probB;
-    if (totalProb >= 1) {
-      return { stakeA: 0, stakeB: 0, profit: 0 }; // no arb
-    }
+  const profit = (stakeA * (decOddsA - 1)) - (stake - stakeA);
 
-    const stakeA = (stake * probB) / totalProb;
-    const stakeB = (stake * probA) / totalProb;
+  sideA.innerHTML = `${oddsA}<br>$${stakeA.toFixed(2)}`;
+  sideB.innerHTML = `${oddsB}<br>$${stakeB.toFixed(2)}`;
+  profitCircle.innerHTML = `Profit: $${profit.toFixed(2)}`;
+}
 
-    const payoutA = oddsA > 0 ? stakeA * (oddsA / 100) : stakeA / (Math.abs(oddsA) / 100);
-    const payoutB = oddsB > 0 ? stakeB * (oddsB / 100) : stakeB / (Math.abs(oddsB) / 100);
+// === ODDS CONVERSION ===
+function toDecimalOdds(odds) {
+  if (typeof odds === "string") odds = parseFloat(odds);
+  if (odds > 0) return 1 + odds / 100;
+  return 1 + 100 / Math.abs(odds);
+}
 
-    const profit = Math.min(payoutA - stakeB, payoutB - stakeA);
-
-    return { stakeA: stakeA.toFixed(2), stakeB: stakeB.toFixed(2), profit: profit.toFixed(2) };
-  }
-
-  // 🔹 When clicking an arb card, fill calculator
-  arbCards.forEach(card => {
-    card.addEventListener("click", () => {
-      const oddsA = card.getAttribute("data-odds-a");
-      const oddsB = card.getAttribute("data-odds-b");
-      const stake = parseFloat(defaultStakeInput.value) || 100;
-
-      const { stakeA, stakeB, profit } = calculateStakes(oddsA, oddsB, stake);
-
-      sideA.innerHTML = `${oddsA}<br>$${stakeA}`;
-      sideB.innerHTML = `${oddsB}<br>$${stakeB}`;
-      profitCircle.textContent = `Profit: $${profit}`;
-      profitCircle.classList.add("pulse");
-      setTimeout(() => profitCircle.classList.remove("pulse"), 600);
-    });
-  });
-
-  // 🔹 OddsAPI Fetcher
-  async function fetchArbs() {
-    try {
-     const res = await fetch("https://api.the-odds-api.com/v4/sports/upcoming/odds?apiKey=de315d01b18dc6e2e5dc488d219fce01&regions=us");
-
-     const data = await res.json();
-console.log("✅ API Response:", data); // debug log
-
-
-
-      // Update arb cards dynamically with status
-      document.querySelectorAll(".arb-card").forEach((card, i) => {
-        const market = data[i];
-        if (!market) return;
-
-        const status = card.querySelector(".arb-status");
-        if (market.bookmakers?.[0]?.markets?.[0]?.outcomes) {
-          const home = market.bookmakers[0].markets[0].outcomes[0];
-          const away = market.bookmakers[0].markets[0].outcomes[1];
-
-          // Update odds + attributes
-          card.setAttribute("data-odds-a", home.price > 0 ? `+${home.price}` : home.price);
-          card.setAttribute("data-odds-b", away.price > 0 ? `+${away.price}` : away.price);
-
-          card.querySelector("div:nth-child(3)").textContent = `Home: ${home.price}`;
-          card.querySelector("div:nth-child(4)").textContent = `Away: ${away.price}`;
-        }
-
-        if (market.status === "suspended" || market.status === "closed") {
-          card.classList.add("closed");
-          if (status) status.textContent = "Bet Closed";
-        } else {
-          card.classList.remove("closed");
-          if (status) status.textContent = "Live";
-        }
-      });
-    } catch (err) {
-      console.error("Error fetching odds:", err);
-    }
-  }
-
-  fetchArbs();
-  setInterval(fetchArbs, 5000); // refresh every 5s
-});
+// === AUTO REFRESH EVERY 5 SECS ===
+setInterval(fetchArbs, 5000);
+fetchArbs();
