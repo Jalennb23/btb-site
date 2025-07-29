@@ -415,5 +415,32 @@ html, body {
   overflow-y: auto;
   padding: 10px;
 }
+.calc-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px; /* space between input and button */
+  margin-top: 15px;
+}
+
+.stake-input {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.right-books {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.total-box {
+  margin-top: auto;
+  padding: 10px;
+  font-weight: bold;
+  text-align: center;
+  border-top: 2px solid #00ff99;
+}
 
 
