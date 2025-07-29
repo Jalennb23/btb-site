@@ -64,6 +64,15 @@
 
   </div>
   <!-- End Dashboard -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const feed = document.querySelector(".left-feed");
+  const cards = Array.from(feed.querySelectorAll(".arb-card"));
+
+  cards.sort((a, b) => parseFloat(b.dataset.arb) - parseFloat(a.dataset.arb));
+  cards.forEach(card => feed.appendChild(card));
+});
+</script>
 
   <script src="assets/js/calculator.js"></script>
 </body>
