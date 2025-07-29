@@ -4,21 +4,23 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BTB Dashboard</title>
-  <link rel="stylesheet" href="dashboard.css">
+  <link rel="stylesheet" href="assets/css/dashboard.css">
+  <link rel="icon" href="assets/logos/btb.ico">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
 
   <!-- 🔥 Dashboard Layout -->
   <div class="dashboard">
-    
+
     <!-- Left Column: Arbitrage Feed -->
     <aside class="left-feed">
       <div class="arb-card">Arb Opportunity 1</div>
       <div class="arb-card">Arb Opportunity 2</div>
-      <!-- repeat... -->
+      <div class="arb-card">Arb Opportunity 3</div>
     </aside>
 
-    <!-- Center Calculator -->
+    <!-- Center Column: Calculator -->
     <main class="center-calc">
       <div class="calc-box">
         <div class="side">+100<br>$0</div>
@@ -32,19 +34,16 @@
     <aside class="right-books">
       <h2>Sportsbooks</h2>
       <div class="book-list">
-        <div class="book">FanDuel $500</div>
-        <div class="book">DraftKings $300</div>
-        <!-- repeat... -->
+        <div class="book"><span>FanDuel</span> <span>$500</span></div>
+        <div class="book"><span>DraftKings</span> <span>$300</span></div>
+        <div class="book"><span>Caesars</span> <span>$200</span></div>
       </div>
-      <div class="total-box">Total: $800</div>
+      <div class="total-box">Total: $1000</div>
     </aside>
 
   </div>
   <!-- End Dashboard -->
-<script src="calculator.js"></script>
 
+  <script src="assets/js/calculator.js"></script>
 </body>
 </html>
-
-
-
