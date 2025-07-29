@@ -98,3 +98,45 @@ document.addEventListener("DOMContentLoaded", () => {
   fetchArbs();
   setInterval(fetchArbs, 5000);
 });
+document.addEventListener("DOMContentLoaded", () => {
+  const stakeInput = document.getElementById("defaultStake");
+  const sideA = document.getElementById("sideA");
+  const sideB = document.getElementById("sideB");
+  const profitCircle = document.getElementById("profitCircle");
+
+  // Example odds (replace with live odds later)
+  let oddsA = +100;
+  let oddsB = -100;
+
+  // Function to calculate payouts & guaranteed profit
+  function updateCalculator() {
+    const stake = parseFloat(stakeInput.value) || 0;
+
+    // Stake amounts (for now just same stake both sides)
+    let stakeA = stake;
+    let stakeB = stake;
+
+    // Payout calculations
+    let payoutA = oddsA > 0 ? stakeA * (oddsA / 100) : stakeA / (Math.abs(oddsA) / 100);
+    let payoutB = oddsB > 0 ? stakeB * (oddsB / 100) : stakeB / (Math.abs(oddsB) / 100);
+
+    // Guaranteed profit = smaller payout - total stake
+    let totalStake = stakeA + stakeB;
+    let guaranteedProfit = Math.min(payoutA, payoutB) - totalStake;
+
+    // Update UI
+    sideA.innerHTML = `${oddsA}<br>$${stakeA.toFixed(2)}`;
+    sideB.innerHTML = `${oddsB}<br>$${stakeB.toFixed(2)}`;
+    profitCircle.textContent = `Profit: $${guaranteedProfit.toFixed(2)}`;
+
+    // Animate profit circle when value changes
+    profitCircle.classList.add("pulse");
+    setTimeout(() => profitCircle.classList.remove("pulse"), 600);
+  }
+
+  // Update on stake change
+  stakeInput.addEventListener("input", updateCalculator);
+
+  // Run once on page load
+  updateCalculator();
+});
