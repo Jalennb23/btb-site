@@ -63,16 +63,19 @@ function updateResult(message, isArb) {
   const resultEl = document.getElementById("result");
   const circleEl = document.querySelector(".center-circle");
 
-  resultEl.textContent = message;
+  // ✅ Only trigger pulse if the text actually changes
+  if (resultEl.textContent !== message) {
+    resultEl.textContent = message;
 
-  if (isArb) {
-    resultEl.style.color = "#00ff66"; // money green
-  } else {
-    resultEl.style.color = "#ff4444"; // red
+    if (isArb) {
+      resultEl.style.color = "#00ff66"; // money green
+    } else {
+      resultEl.style.color = "#ff4444"; // red
+    }
+
+    // 🔥 Trigger pulse only on change
+    circleEl.classList.remove("pulse");
+    void circleEl.offsetWidth; // reflow to restart animation
+    circleEl.classList.add("pulse");
   }
-
-  // 🔥 Trigger pulse animation on circle
-  circleEl.classList.remove("pulse");
-  void circleEl.offsetWidth; // reflow to restart animation
-  circleEl.classList.add("pulse");
 }
