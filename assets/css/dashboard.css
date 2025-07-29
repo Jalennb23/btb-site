@@ -242,5 +242,19 @@ body {
 #chat-input button:hover {
   background: #00cc55;
 }
+/* Force calculator to center in available screen space */
+.tab#calculator {
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 40px); /* subtract padding/header if needed */
+  width: 100%;
+  flex-direction: column;
+}
+
+.tab#calculator .center-panel {
+  flex: 0 0 auto;
+  margin: auto; /* force to middle */
+}
 
 
