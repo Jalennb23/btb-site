@@ -1,89 +1,87 @@
-// === CONFIG ===
-const API_KEY = "de315d01b18dc6e2e5dc488d219fce01"; // <-- replace with your key
-const API_URL = `https://api.the-odds-api.com/v4/sports/upcoming/odds/?regions=us&markets=h2h&apiKey=${API_KEY}`;
+// ============================
+// BTB Dashboard JS
+// ============================
 
-// === FETCH ODDS & RENDER ARBS ===
-async function fetchArbs() {
-  try {
-    const res = await fetch(API_URL);
-    const data = await res.json();
-
-    console.log("API Response:", data); // debug
-    renderArbs(data);
-  } catch (err) {
-    console.error("API Fetch Error:", err);
+// ✅ Convert Decimal Odds → American Odds
+function convertDecimalToAmerican(decimal) {
+  if (decimal >= 2.0) {
+    return `+${Math.round((decimal - 1) * 100)}`;
+  } else {
+    return `${Math.round(-100 / (decimal - 1))}`;
   }
 }
 
-// === RENDER ARB CARDS ===
-function renderArbs(games) {
-  const feed = document.querySelector(".left-feed");
-  feed.innerHTML = ""; // clear old cards
+// ✅ Fetch Odds API
+async function fetchOdds() {
+  try {
+    const response = await fetch(
+      `https://api.the-odds-api.com/v4/sports/upcoming/odds?apiKey=de315d01b18dc6e2e5dc488d219fce01&regions=us&markets=h2h&oddsFormat=decimal`
+    );
 
-  games.forEach(game => {
+    if (!response.ok) throw new Error("API Request Failed");
+    const data = await response.json();
+
+    console.log("API Response:", data);
+
+    renderArbCards(data);
+  } catch (error) {
+    console.error("Error fetching odds:", error);
+  }
+}
+
+// ✅ Render Arb Cards (Left Panel)
+function renderArbCards(data) {
+  const feed = document.querySelector(".left-feed");
+  feed.innerHTML = ""; // Clear old cards
+
+  data.forEach((game) => {
     if (!game.bookmakers || game.bookmakers.length === 0) return;
 
-    // Grab odds from first bookmaker (expand later)
-    const outcomes = game.bookmakers[0].markets[0].outcomes;
-    const home = outcomes.find(o => o.name === game.home_team);
-    const away = outcomes.find(o => o.name === game.away_team);
+    const market = game.bookmakers[0].markets[0];
+    if (!market || !market.outcomes || market.outcomes.length < 2) return;
 
-    if (!home || !away) return;
+    const homeDecimal = market.outcomes[0].price;
+    const awayDecimal = market.outcomes[1].price;
 
-    // Create arb card
+    const homeOdds = convertDecimalToAmerican(homeDecimal);
+    const awayOdds = convertDecimalToAmerican(awayDecimal);
+
     const card = document.createElement("div");
     card.classList.add("arb-card");
-    card.setAttribute("data-odds-a", home.price);
-    card.setAttribute("data-odds-b", away.price);
-
     card.innerHTML = `
       <div class="arb-header">
         <span class="arb-percent">Arb?</span>
         <span class="arb-status">Live</span>
       </div>
       <div>Game: ${game.home_team} vs ${game.away_team}</div>
-      <div>Home: ${home.price}</div>
-      <div>Away: ${away.price}</div>
+      <div>Home: ${homeOdds}</div>
+      <div>Away: ${awayOdds}</div>
       <div class="arb-bar"></div>
     `;
-
-    // Attach click → auto-fill calculator
-    card.addEventListener("click", () => {
-      const stake = parseFloat(document.getElementById("defaultStake").value) || 100;
-      fillCalculator(home.price, away.price, stake);
-    });
 
     feed.appendChild(card);
   });
 }
 
-// === FILL CALCULATOR ===
-function fillCalculator(oddsA, oddsB, stake) {
-  const sideA = document.getElementById("sideA");
-  const sideB = document.getElementById("sideB");
-  const profitCircle = document.getElementById("profitCircle");
+// ✅ Sportsbook Totals
+function updateSportsbookTotals() {
+  const books = document.querySelectorAll(".book");
+  let total = 0;
 
-  const decOddsA = toDecimalOdds(oddsA);
-  const decOddsB = toDecimalOdds(oddsB);
+  books.forEach((book) => {
+    const balance = parseFloat(book.querySelector("span:last-child").textContent.replace("$", ""));
+    total += balance;
+  });
 
-  // Stake allocation formula
-  const stakeA = (stake * decOddsB) / (decOddsA + decOddsB);
-  const stakeB = stake - stakeA;
-
-  const profit = (stakeA * (decOddsA - 1)) - (stake - stakeA);
-
-  sideA.innerHTML = `${oddsA}<br>$${stakeA.toFixed(2)}`;
-  sideB.innerHTML = `${oddsB}<br>$${stakeB.toFixed(2)}`;
-  profitCircle.innerHTML = `Profit: $${profit.toFixed(2)}`;
+  const totalBox = document.querySelector(".total-box");
+  if (totalBox) totalBox.textContent = `Total: $${total}`;
 }
 
-// === ODDS CONVERSION ===
-function toDecimalOdds(odds) {
-  if (typeof odds === "string") odds = parseFloat(odds);
-  if (odds > 0) return 1 + odds / 100;
-  return 1 + 100 / Math.abs(odds);
-}
+// ✅ Initialize
+document.addEventListener("DOMContentLoaded", () => {
+  fetchOdds();
+  updateSportsbookTotals();
 
-// === AUTO REFRESH EVERY 5 SECS ===
-setInterval(fetchArbs, 5000);
-fetchArbs();
+  // Auto-refresh every 5s
+  setInterval(fetchOdds, 5000);
+});
