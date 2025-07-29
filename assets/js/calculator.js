@@ -1,53 +1,78 @@
+// calculator.js
+
+function americanToDecimal(odds) {
+  odds = parseFloat(odds);
+  if (isNaN(odds)) return 0;
+  if (odds > 0) {
+    return (odds / 100) + 1;
+  } else {
+    return (100 / Math.abs(odds)) + 1;
+  }
+}
+
 function calculateFromStake1() {
-  const odds1 = parseFloat(document.getElementById("odds1").value) || 0;
-  const stake1 = parseFloat(document.getElementById("stake1").value) || 0;
-  const odds2 = parseFloat(document.getElementById("odds2").value) || 0;
-  const stake2 = parseFloat(document.getElementById("stake2").value) || 0;
-  calculateProfit(stake1, stake2, convertOdds(odds1), convertOdds(odds2));
+  const odds1 = document.getElementById("odds1").value;
+  const stake1 = document.getElementById("stake1").value;
+  const odds2 = document.getElementById("odds2").value;
+  const stake2 = document.getElementById("stake2").value;
+
+  runCalculation(odds1, stake1, odds2, stake2);
 }
 
 function calculateFromStake2() {
-  const odds1 = parseFloat(document.getElementById("odds1").value) || 0;
-  const stake1 = parseFloat(document.getElementById("stake1").value) || 0;
-  const odds2 = parseFloat(document.getElementById("odds2").value) || 0;
-  const stake2 = parseFloat(document.getElementById("stake2").value) || 0;
-  calculateProfit(stake1, stake2, convertOdds(odds1), convertOdds(odds2));
+  const odds1 = document.getElementById("odds1").value;
+  const stake1 = document.getElementById("stake1").value;
+  const odds2 = document.getElementById("odds2").value;
+  const stake2 = document.getElementById("stake2").value;
+
+  runCalculation(odds1, stake1, odds2, stake2);
 }
 
-function convertOdds(americanOdds) {
-  if (americanOdds > 0) {
-    return (americanOdds / 100) + 1;
-  } else if (americanOdds < 0) {
-    return (100 / Math.abs(americanOdds)) + 1;
+function runCalculation(odds1, stake1, odds2, stake2) {
+  const dec1 = americanToDecimal(odds1);
+  const dec2 = americanToDecimal(odds2);
+
+  stake1 = parseFloat(stake1) || 0;
+  stake2 = parseFloat(stake2) || 0;
+
+  const payout1 = stake1 * dec1;
+  const payout2 = stake2 * dec2;
+
+  const totalStake = stake1 + stake2;
+  const profit1 = payout1 - totalStake;
+  const profit2 = payout2 - totalStake;
+
+  let resultText = "";
+  let isArb = false;
+
+  if (stake1 > 0 && stake2 > 0) {
+    if (profit1 > 0 && profit2 > 0) {
+      resultText = `Arb! Guaranteed Profit: $${Math.min(profit1, profit2).toFixed(2)}`;
+      isArb = true;
+    } else {
+      resultText = `No Arb. Profit 1: $${profit1.toFixed(2)} | Profit 2: $${profit2.toFixed(2)}`;
+    }
   } else {
-    return 0;
+    resultText = "Enter stakes to calculate";
   }
+
+  updateResult(resultText, isArb);
 }
 
-function calculateProfit(stake1, stake2, odds1, odds2) {
+function updateResult(message, isArb) {
   const resultEl = document.getElementById("result");
   const circleEl = document.querySelector(".center-circle");
 
-  // Potential returns
-  let return1 = stake1 * odds1;
-  let return2 = stake2 * odds2;
+  resultEl.textContent = message;
 
-  // Net results if each side wins
-  let profitIf1Wins = return1 - (stake1 + stake2);
-  let profitIf2Wins = return2 - (stake1 + stake2);
-
-  // Detect if arbitrage exists
-  if (profitIf1Wins > 0 && profitIf2Wins > 0) {
-    resultEl.textContent =
-      `Arb Profit: $${Math.min(profitIf1Wins, profitIf2Wins).toFixed(2)}`;
-    resultEl.style.color = "#4caf50";
-    resultEl.classList.add("pulse-green");
-    circleEl.classList.add("pulse-border-green");
+  if (isArb) {
+    resultEl.style.color = "#00ff66"; // money green
   } else {
-    resultEl.textContent =
-      `No Arb (If 1 wins: $${profitIf1Wins.toFixed(2)}, If 2 wins: $${profitIf2Wins.toFixed(2)})`;
-    resultEl.style.color = "#ff5252";
-    resultEl.classList.remove("pulse-green");
-    circleEl.classList.remove("pulse-border-green");
+    resultEl.style.color = "#ff4444"; // red
   }
+
+  // 🔥 Trigger pulse animation on circle
+  circleEl.classList.remove("pulse");
+  void circleEl.offsetWidth; // reflow to restart animation
+  circleEl.classList.add("pulse");
 }
