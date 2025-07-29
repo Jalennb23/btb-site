@@ -307,9 +307,12 @@ h1, h2 {
   height: 40px;
   object-fit: contain;
   margin-bottom: 8px;
-  background-color: #fff;
+  background-color: transparent; /* remove the white background */
   border-radius: 5px;
+  padding: 2px;
+  border: 1px solid #444; /* optional: subtle border to define the square */
 }
+
 
 .book-tile input {
   background-color: #111;
