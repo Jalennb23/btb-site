@@ -221,5 +221,22 @@ body {
   50% { box-shadow: 0 0 20px #00ff88; }
   100% { box-shadow: 0 0 5px #00ff88; }
 }
+/* === Closed Arb State (Auto Triggered) === */
+.arb-card.closed {
+  background: #1a1a1a;
+  color: #aaa;
+  border: 1px solid #333;
+  opacity: 0.6;
+}
+
+.arb-card.closed::after {
+  content: "Bet Closed";
+  display: block;
+  text-align: center;
+  margin-top: 8px;
+  font-size: 13px;
+  color: #ff4d4d;
+  font-weight: 600;
+}
 
 
