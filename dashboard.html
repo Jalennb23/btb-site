@@ -81,29 +81,34 @@
     <main class="main-panel">
 
       <!-- Calculator -->
-      <section id="calculator" class="tab active">
-        <div class="calculator">
-          <h2>Arbitrage Calculator</h2>
-          <div class="calc-grid">
-            <div class="calc-side">
-              <label>Odds 1</label>
-              <input type="number" id="odds1" placeholder="e.g. +110" />
-              <label>Stake 1</label>
-              <input type="number" id="stake1" placeholder="$100" />
-            </div>
-            <div class="calc-side">
-              <label>Odds 2</label>
-              <input type="number" id="odds2" placeholder="e.g. -120" />
-              <label>Stake 2</label>
-              <input type="number" id="stake2" placeholder="$100" />
-            </div>
-          </div>
-          <button id="calculate">Calculate</button>
-          <div class="calc-result" id="calcResult">Profit: $0.00</div>
-        </div>
-      </section>
+   <section id="calculator" class="tab active">
+  <div class="center-panel">
+    <div class="market-box money-glow">
+      <div class="market-column">
+        <span class="market-label">Over</span>
+        <span class="market-odds" id="odds1Display">+106</span>
+        <input type="number" id="odds1" placeholder="Odds 1" oninput="calculateFromStake1()" />
+        <input type="number" id="stake1" placeholder="Stake 1" oninput="calculateFromStake1()" />
+      </div>
 
-      <!-- EV Feed -->
+      <div class="center-circle">
+        <span class="game-info">Cleveland @ KC</span>
+        <span class="line">Total Hits <strong>6.5</strong></span>
+        <span class="game-time">1:40 PM</span>
+        <div id="result">Profit: $0.00</div>
+      </div>
+
+      <div class="market-column">
+        <span class="market-label">Under</span>
+        <span class="market-odds" id="odds2Display">-110</span>
+        <input type="number" id="odds2" placeholder="Odds 2" oninput="calculateFromStake2()" />
+        <input type="number" id="stake2" placeholder="Stake 2" oninput="calculateFromStake2()" />
+      </div>
+    </div>
+  </div>
+</section>
+
+     <!-- EV Feed -->
       <section id="ev" class="tab">
         <h2>+EV Feed</h2>
         <div class="feed-grid">
