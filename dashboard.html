@@ -7,6 +7,8 @@
 </head>
 <body>
   <div class="dashboard-container">
+    
+    <!-- Sidebar Navigation -->
     <aside class="sidebar">
       <h1>🔥 BTB</h1>
       <nav>
@@ -18,92 +20,90 @@
       </nav>
     </aside>
 
+    <!-- Left Panel: Sportsbook Balances -->
+    <aside class="left-panel">
+      <h2>Sportsbook Balances</h2>
+      <div class="sportsbook-grid">
+        <div class="book-tile">
+          <img src="assets/logos/fanduel.png" alt="FanDuel" />
+          <span>FanDuel</span>
+          <input type="number" id="fanduelBalance" placeholder="$0.00" />
+        </div>
+        <div class="book-tile">
+          <img src="assets/logos/draftkings.png" alt="DraftKings" />
+          <span>DraftKings</span>
+          <input type="number" id="draftkingsBalance" placeholder="$0.00" />
+        </div>
+        <div class="book-tile">
+          <img src="assets/logos/caesars.png" alt="Caesars" />
+          <span>Caesars</span>
+          <input type="number" id="caesarsBalance" placeholder="$0.00" />
+        </div>
+        <div class="book-tile">
+          <img src="assets/logos/betmgm.png" alt="BetMGM" />
+          <span>BetMGM</span>
+          <input type="number" id="betmgmBalance" placeholder="$0.00" />
+        </div>
+        <div class="book-tile">
+          <img src="assets/logos/betonline.png" alt="BetOnline" />
+          <span>BetOnline</span>
+          <input type="number" id="betonlineBalance" placeholder="$0.00" />
+        </div>
+        <div class="book-tile">
+          <img src="assets/logos/bovada.png" alt="Bovada" />
+          <span>Bovada</span>
+          <input type="number" id="bovadaBalance" placeholder="$0.00" />
+        </div>
+        <div class="book-tile">
+          <img src="assets/logos/fanatics.png" alt="Fanatics" />
+          <span>Fanatics</span>
+          <input type="number" id="fanaticsBalance" placeholder="$0.00" />
+        </div>
+        <div class="book-tile">
+          <img src="assets/logos/bet365.png" alt="Bet365" />
+          <span>Bet365</span>
+          <input type="number" id="bet365Balance" placeholder="$0.00" />
+        </div>
+        <div class="book-tile">
+          <img src="assets/logos/betrivers.png" alt="BetRivers" />
+          <span>BetRivers</span>
+          <input type="number" id="betriversBalance" placeholder="$0.00" />
+        </div>
+        <div class="book-tile">
+          <img src="assets/logos/espnbet.png" alt="ESPN Bet" />
+          <span>ESPN Bet</span>
+          <input type="number" id="espnbetBalance" placeholder="$0.00" />
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Panel -->
     <main class="main-panel">
-      <!-- Sportsbook Balances Panel -->
-      <section class="sportsbook-balances">
-  <h2>Sportsbook Balances</h2>
-  <div class="sportsbook-grid">
-    <div class="book-tile">
-      <img src="assets/logos/fanduel.png" alt="FanDuel" />
-      <span>FanDuel</span>
-      <input type="number" id="fanduelBalance" placeholder="$0.00" />
-    </div>
-    <div class="book-tile">
-      <img src="assets/logos/draftkings.png" alt="DraftKings" />
-      <span>DraftKings</span>
-      <input type="number" id="draftkingsBalance" placeholder="$0.00" />
-    </div>
-    <div class="book-tile">
-      <img src="assets/logos/caesars.png" alt="Caesars" />
-      <span>Caesars</span>
-      <input type="number" id="caesarsBalance" placeholder="$0.00" />
-    </div>
-    <div class="book-tile">
-      <img src="assets/logos/betmgm.png" alt="BetMGM" />
-      <span>BetMGM</span>
-      <input type="number" id="betmgmBalance" placeholder="$0.00" />
-    </div>
-    <div class="book-tile">
-      <img src="assets/logos/betonline.png" alt="BetOnline" />
-      <span>BetOnline</span>
-      <input type="number" id="betonlineBalance" placeholder="$0.00" />
-    </div>
-    <div class="book-tile">
-      <img src="assets/logos/bovada.png" alt="Bovada" />
-      <span>Bovada</span>
-      <input type="number" id="bovadaBalance" placeholder="$0.00" />
-    </div>
-    <div class="book-tile">
-      <img src="assets/logos/fanatics.png" alt="Fanatics" />
-      <span>Fanatics</span>
-      <input type="number" id="fanaticsBalance" placeholder="$0.00" />
-    </div>
-    <div class="book-tile">
-      <img src="assets/logos/bet365.png" alt="Bet365" />
-      <span>Bet365</span>
-      <input type="number" id="bet365Balance" placeholder="$0.00" />
-    </div>
-    <div class="book-tile">
-      <img src="assets/logos/betrivers.png" alt="BetRivers" />
-      <span>BetRivers</span>
-      <input type="number" id="betriversBalance" placeholder="$0.00" />
-    </div>
-    <div class="book-tile">
-      <img src="assets/logos/espnbet.png" alt="ESPN Bet" />
-      <span>ESPN Bet</span>
-      <input type="number" id="espnbetBalance" placeholder="$0.00" />
-    </div>
-  </div>
-</section>
 
-
+      <!-- Calculator -->
       <section id="calculator" class="tab active">
-        <div class="center-panel">
-          <div class="market-box">
-            <div class="market-column">
-              <span class="market-label">Over</span>
-              <span class="market-odds" id="odds1Display">+106</span>
-              <input type="number" id="odds1" placeholder="Odds 1" oninput="calculateFromStake1()" />
-              <input type="number" id="stake1" placeholder="Stake 1" oninput="calculateFromStake1()" />
+        <div class="calculator">
+          <h2>Arbitrage Calculator</h2>
+          <div class="calc-grid">
+            <div class="calc-side">
+              <label>Odds 1</label>
+              <input type="number" id="odds1" placeholder="e.g. +110" />
+              <label>Stake 1</label>
+              <input type="number" id="stake1" placeholder="$100" />
             </div>
-
-            <div class="center-circle">
-              <span class="game-info">Cleveland @ KC</span>
-              <span class="line">Total Hits <strong>6.5</strong></span>
-              <span class="game-time">1:40 PM</span>
-              <div id="result">Profit: $0.00</div>
-            </div>
-
-            <div class="market-column">
-              <span class="market-label">Under</span>
-              <span class="market-odds" id="odds2Display">-110</span>
-              <input type="number" id="odds2" placeholder="Odds 2" oninput="calculateFromStake2()" />
-              <input type="number" id="stake2" placeholder="Stake 2" oninput="calculateFromStake2()" />
+            <div class="calc-side">
+              <label>Odds 2</label>
+              <input type="number" id="odds2" placeholder="e.g. -120" />
+              <label>Stake 2</label>
+              <input type="number" id="stake2" placeholder="$100" />
             </div>
           </div>
+          <button id="calculate">Calculate</button>
+          <div class="calc-result" id="calcResult">Profit: $0.00</div>
         </div>
       </section>
 
+      <!-- EV Feed -->
       <section id="ev" class="tab">
         <h2>+EV Feed</h2>
         <div class="feed-grid">
@@ -112,69 +112,52 @@
         </div>
       </section>
 
-    <section id="arb" class="tab">
-  <h2>Arbitrage Opportunities</h2>
-  <div class="arb-container">
-    <div class="arb-card">
-      <div class="arb-sides">
-        <div class="arb-side">
-          <h4>Team A</h4>
-          <p>Odds: +110</p>
-          <p>Book: FanDuel</p>
+      <!-- Arbitrage -->
+      <section id="arb" class="tab">
+        <h2>Arbitrage Opportunities</h2>
+        <div class="arb-container">
+          <div class="arb-card">
+            <div class="arb-sides">
+              <div class="arb-side">
+                <h4>Team A</h4>
+                <p>Odds: +110</p>
+                <p>Book: FanDuel</p>
+              </div>
+              <div class="arb-side">
+                <h4>Team B</h4>
+                <p>Odds: -105</p>
+                <p>Book: DraftKings</p>
+              </div>
+            </div>
+            <button class="bet-btn" onclick="trackBet('fanduelBalance', 50)">Track Bet</button>
+          </div>
         </div>
-        <div class="arb-side">
-          <h4>Team B</h4>
-          <p>Odds: -105</p>
-          <p>Book: DraftKings</p>
+      </section>
+
+      <!-- Live Odds -->
+      <section id="live" class="tab">
+        <div class="center-panel">
+          <div class="market-box">
+            <div class="market-column">
+              <span class="market-label">Team A</span>
+              <span class="market-odds">+120</span>
+              <button class="bet-btn">Bet</button>
+            </div>
+            <div class="center-circle">
+              <span class="game-info">Chicago @ Detroit</span>
+              <span class="line">Moneyline</span>
+              <span class="game-time">3:10 PM</span>
+            </div>
+            <div class="market-column">
+              <span class="market-label">Team B</span>
+              <span class="market-odds">-135</span>
+              <button class="bet-btn">Bet</button>
+            </div>
+          </div>
         </div>
-      </div>
-      <button class="bet-btn" onclick="trackBet('fanduelBalance', 50)">Track Bet</button>
-    </div>
+      </section>
 
-    <div class="arb-card">
-      <div class="arb-sides">
-        <div class="arb-side">
-          <h4>Over 210.5</h4>
-          <p>Odds: -102</p>
-          <p>Book: Caesars</p>
-        </div>
-        <div class="arb-side">
-          <h4>Under 210.5</h4>
-          <p>Odds: +108</p>
-          <p>Book: BetMGM</p>
-        </div>
-      </div>
-     <button class="bet-btn" onclick="trackBet('caesarsBalance', 35)">Track Bet</button>
-    </div>
-  </div>
-</section>
-
-
-    <section id="live" class="tab">
-  <div class="center-panel">
-    <div class="market-box">
-      <div class="market-column">
-        <span class="market-label">Team A</span>
-        <span class="market-odds">+120</span>
-        <button class="bet-btn">Bet</button>
-      </div>
-
-      <div class="center-circle">
-        <span class="game-info">Chicago @ Detroit</span>
-        <span class="line">Moneyline</span>
-        <span class="game-time">3:10 PM</span>
-      </div>
-
-      <div class="market-column">
-        <span class="market-label">Team B</span>
-        <span class="market-odds">-135</span>
-        <button class="bet-btn">Bet</button>
-      </div>
-    </div>
-  </div>
-</section>
-
-
+      <!-- Chat -->
       <section id="chat" class="tab">
         <h2>Live Chat</h2>
         <div id="chat-window">
@@ -186,6 +169,7 @@
           <button>Send</button>
         </div>
       </section>
+
     </main>
   </div>
 
