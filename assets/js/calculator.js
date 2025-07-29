@@ -1,51 +1,32 @@
-// ===== Calculator Logic with Pulse Effect =====
-
-// Convert American odds to decimal odds
-function americanToDecimal(odds) {
-  odds = parseFloat(odds);
-  if (isNaN(odds) || odds === 0) return null;
-  if (odds > 0) return 1 + odds / 100;
-  return 1 + 100 / Math.abs(odds);
-}
-
-// Calculate profit and adjust other side dynamically
 function calculateFromStake1() {
-  let odds1 = americanToDecimal(document.getElementById("odds1").value || document.getElementById("odds1Display").textContent);
-  let odds2 = americanToDecimal(document.getElementById("odds2").value || document.getElementById("odds2Display").textContent);
-  let stake1 = parseFloat(document.getElementById("stake1").value) || 0;
-
-  if (!odds1 || !odds2 || stake1 <= 0) {
-    resetResult();
-    return;
-  }
-
-  // Calculate required stake2 to balance
-  let stake2 = (stake1 * odds1) / odds2;
-  document.getElementById("stake2").value = stake2.toFixed(2);
-
-  calculateProfit(stake1, stake2, odds1, odds2);
+  const odds1 = parseFloat(document.getElementById("odds1").value) || 0;
+  const stake1 = parseFloat(document.getElementById("stake1").value) || 0;
+  const odds2 = parseFloat(document.getElementById("odds2").value) || 0;
+  const stake2 = parseFloat(document.getElementById("stake2").value) || 0;
+  calculateProfit(stake1, stake2, convertOdds(odds1), convertOdds(odds2));
 }
 
 function calculateFromStake2() {
-  let odds1 = americanToDecimal(document.getElementById("odds1").value || document.getElementById("odds1Display").textContent);
-  let odds2 = americanToDecimal(document.getElementById("odds2").value || document.getElementById("odds2Display").textContent);
-  let stake2 = parseFloat(document.getElementById("stake2").value) || 0;
-
-  if (!odds1 || !odds2 || stake2 <= 0) {
-    resetResult();
-    return;
-  }
-
-  // Calculate required stake1 to balance
-  let stake1 = (stake2 * odds2) / odds1;
-  document.getElementById("stake1").value = stake1.toFixed(2);
-
-  calculateProfit(stake1, stake2, odds1, odds2);
+  const odds1 = parseFloat(document.getElementById("odds1").value) || 0;
+  const stake1 = parseFloat(document.getElementById("stake1").value) || 0;
+  const odds2 = parseFloat(document.getElementById("odds2").value) || 0;
+  const stake2 = parseFloat(document.getElementById("stake2").value) || 0;
+  calculateProfit(stake1, stake2, convertOdds(odds1), convertOdds(odds2));
 }
 
-// Core profit calculation
+function convertOdds(americanOdds) {
+  if (americanOdds > 0) {
+    return (americanOdds / 100) + 1;
+  } else if (americanOdds < 0) {
+    return (100 / Math.abs(americanOdds)) + 1;
+  } else {
+    return 0;
+  }
+}
+
 function calculateProfit(stake1, stake2, odds1, odds2) {
   const resultEl = document.getElementById("result");
+  const circleEl = document.querySelector(".center-circle");
 
   // Potential returns
   let return1 = stake1 * odds1;
@@ -61,17 +42,12 @@ function calculateProfit(stake1, stake2, odds1, odds2) {
       `Arb Profit: $${Math.min(profitIf1Wins, profitIf2Wins).toFixed(2)}`;
     resultEl.style.color = "#4caf50";
     resultEl.classList.add("pulse-green");
+    circleEl.classList.add("pulse-border-green");
   } else {
     resultEl.textContent =
-      `No Arb (Profit if 1 wins: $${profitIf1Wins.toFixed(2)}, if 2 wins: $${profitIf2Wins.toFixed(2)})`;
+      `No Arb (If 1 wins: $${profitIf1Wins.toFixed(2)}, If 2 wins: $${profitIf2Wins.toFixed(2)})`;
     resultEl.style.color = "#ff5252";
     resultEl.classList.remove("pulse-green");
+    circleEl.classList.remove("pulse-border-green");
   }
-}
-
-function resetResult() {
-  const resultEl = document.getElementById("result");
-  resultEl.textContent = "Profit: $0.00";
-  resultEl.style.color = "#fff";
-  resultEl.classList.remove("pulse-green");
 }
