@@ -7,10 +7,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const profitCircle = document.getElementById("profitCircle");
   const defaultStakeInput = document.getElementById("defaultStake");
 
-  // 🔹 OddsAPI Fetch (placeholder – replace with your real API key)
+  // 🔹 OddsAPI Fetch (using your real API key)
   async function fetchArbs() {
     try {
-      const res = await fetch("https://api.the-odds-api.com/v4/sports/upcoming/odds/?apiKey=YOUR_API_KEY&regions=us");
+      const res = await fetch(
+        "https://api.the-odds-api.com/v4/sports/upcoming/odds/?apiKey=5ac038d8e0msh6fb39c93761e87fp1e4ffajsn5dbec36a5463&regions=us"
+      );
       const data = await res.json();
 
       document.querySelectorAll(".arb-card").forEach((card, i) => {
