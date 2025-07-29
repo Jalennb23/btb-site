@@ -1,148 +1,206 @@
-/* dashboard.css — Redesigned BTB dark dashboard with neon green theme */
-
-body {
+/* Reset and Base Styles */
+* {
+  box-sizing: border-box;
   margin: 0;
+  padding: 0;
   font-family: 'Segoe UI', sans-serif;
-  background-color: #0d0d0d;
-  color: #e0e0e0;
 }
 
-.dashboard-container {
+body {
+  background-color: #111;
+  color: #fff;
   display: flex;
   height: 100vh;
   overflow: hidden;
 }
 
+h1, h2 {
+  margin-bottom: 1rem;
+}
+
+/* Dashboard Layout */
+.dashboard-container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+/* Sidebar */
 .sidebar {
-  width: 240px;
-  background-color: #111;
-  padding: 30px 20px;
-  border-right: 1px solid #1f1f1f;
+  width: 220px;
+  background-color: #1c1c1c;
+  padding: 1.5rem;
+  border-right: 1px solid #2a2a2a;
   display: flex;
   flex-direction: column;
-  gap: 20px;
 }
 
 .sidebar h1 {
-  color: #00ff88;
-  font-size: 28px;
-  margin: 0;
-  text-shadow: 0 0 10px #00ff88;
+  font-size: 1.75rem;
+  margin-bottom: 2rem;
+  color: #ff6b00;
+  text-align: center;
 }
 
 .sidebar nav {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 1rem;
 }
 
-.tab-btn {
-  background: none;
-  border: 1px solid #00ff88;
-  color: #00ff88;
-  font-size: 16px;
-  padding: 10px;
+.sidebar button {
+  background-color: #2a2a2a;
+  border: none;
+  color: #ccc;
+  padding: 0.75rem 1rem;
+  text-align: left;
   border-radius: 6px;
   cursor: pointer;
-  transition: background 0.3s, color 0.3s;
+  transition: background-color 0.3s ease;
 }
 
-.tab-btn:hover,
-.tab-btn.active {
-  background-color: #00ff88;
-  color: #0d0d0d;
+.sidebar button:hover,
+.sidebar button.active {
+  background-color: #444;
+  color: #fff;
 }
 
+/* Main Panel */
 .main-panel {
-  flex-grow: 1;
-  padding: 30px;
+  flex: 1;
+  padding: 2rem;
   overflow-y: auto;
-  background-color: #0d0d0d;
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
 }
 
 .tab {
   display: none;
-  animation: fadeIn 0.4s ease-in-out;
 }
 
 .tab.active {
   display: block;
 }
 
-label {
+/* Calculator Inputs */
+#calculator label {
   display: block;
-  margin-bottom: 10px;
-  font-weight: bold;
-  color: #e0e0e0;
+  margin-bottom: 1rem;
+  color: #eee;
 }
 
-input[type="number"] {
+#calculator input {
+  background-color: #1e1e1e;
+  border: 1px solid #444;
+  padding: 0.5rem;
+  color: #fff;
+  border-radius: 4px;
+  width: 100%;
+  max-width: 250px;
+  margin-top: 0.5rem;
+}
+
+/* Result Display */
+#result {
+  margin-top: 1rem;
+  font-size: 1.1rem;
+}
+
+/* Feed Grid Layout */
+.feed-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.25rem;
+}
+
+.feed-card {
+  background-color: #1f1f1f;
+  border: 1px solid #2a2a2a;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.03);
+  transition: transform 0.2s ease, background-color 0.3s ease;
+}
+
+.feed-card:hover {
+  background-color: #2c2c2c;
+  transform: translateY(-3px);
+}
+
+/* Chat Panel */
+#chat-window {
   background-color: #1a1a1a;
   border: 1px solid #333;
-  color: #00ff88;
-  padding: 8px 12px;
-  border-radius: 5px;
-  font-size: 14px;
-  width: 200px;
-}
-
-#result {
-  margin-top: 20px;
-  padding: 20px;
-  background-color: #1a1a1a;
-  border-radius: 8px;
-  font-size: 16px;
-  color: #ccc;
-  border: 1px solid #00ff88;
-}
-
-#result span {
-  font-weight: bold;
-}
-
-#chat-window {
-  background-color: #141414;
-  padding: 15px;
+  padding: 1rem;
   height: 300px;
   overflow-y: auto;
-  border-radius: 8px;
-  border: 1px solid #333;
+  margin-bottom: 1rem;
+  border-radius: 6px;
 }
 
 #chat-input {
-  margin-top: 10px;
   display: flex;
-  gap: 10px;
+  gap: 0.5rem;
 }
 
-#chat-input input[type="text"] {
-  flex-grow: 1;
-  padding: 10px;
-  border-radius: 6px;
-  border: 1px solid #333;
-  background-color: #1a1a1a;
-  color: #00ff88;
+#chat-input input {
+  flex: 1;
+  padding: 0.5rem;
+  border-radius: 4px;
+  border: 1px solid #444;
+  background-color: #1e1e1e;
+  color: #fff;
 }
 
 #chat-input button {
-  background-color: #00ff88;
+  background-color: #ff6b00;
   border: none;
-  color: #0d0d0d;
-  font-weight: bold;
-  padding: 10px 15px;
-  border-radius: 6px;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: background-color 0.2s ease;
 }
 
 #chat-input button:hover {
-  background-color: #00cc70;
+  background-color: #e65c00;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #111;
+}
+::-webkit-scrollbar-thumb {
+  background: #444;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #666;
+}
+
+/* Responsive Tweaks */
+@media (max-width: 768px) {
+  .dashboard-container {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    flex-direction: row;
+    overflow-x: auto;
+    justify-content: space-around;
+  }
+
+  .sidebar nav {
+    flex-direction: row;
+    gap: 0.5rem;
+  }
+
+  .main-panel {
+    padding: 1rem;
+  }
+
+  .feed-grid {
+    grid-template-columns: 1fr;
+  }
 }
