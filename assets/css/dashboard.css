@@ -161,5 +161,65 @@ body {
   font-size: 18px;
   box-shadow: 0 0 15px #00ff66;
 }
+/* ========================
+   🔥 Arbitrage Feed Styles
+   ======================== */
+.left-feed {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.arb-card {
+  background: #1a1a1a;
+  padding: 12px;
+  border-radius: 10px;
+  box-shadow: 0 0 8px rgba(0, 255, 100, 0.2);
+  transition: all 0.3s ease-in-out;
+}
+
+.arb-card .arb-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: #fff;
+  margin-bottom: 6px;
+}
+
+.arb-card .arb-percent {
+  color: #00ff88;
+  font-weight: bold;
+}
+
+.arb-card .arb-status {
+  color: #999;
+  font-style: italic;
+}
+
+.arb-card .arb-bar {
+  height: 6px;
+  border-radius: 5px;
+  background: linear-gradient(90deg, #00ff66, #00ffcc);
+  box-shadow: 0 0 12px #00ff88;
+  animation: pulse 1.5s infinite;
+}
+
+.arb-card.closed {
+  background: #222;
+  opacity: 0.6;
+  box-shadow: none;
+}
+
+.arb-card.closed .arb-bar {
+  background: #555;
+  box-shadow: none;
+  animation: none;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 5px #00ff88; }
+  50% { box-shadow: 0 0 20px #00ff88; }
+  100% { box-shadow: 0 0 5px #00ff88; }
+}
 
 
