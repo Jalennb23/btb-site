@@ -51,18 +51,6 @@
       box-shadow: 0 0 8px #00ff99;
     }
 
-    .no-arbs {
-      background: #111;
-      border: 1px solid #ff0000;
-      border-radius: 8px;
-      padding: 10px;
-      margin-top: 10px;
-      text-align: center;
-      color: #ff4444;
-      font-weight: bold;
-      box-shadow: 0 0 8px #ff0000;
-    }
-
     /* Logo Section */
     .btb-logo-container {
       display: flex;
@@ -72,7 +60,7 @@
     }
 
     .btb-logo {
-      width: 120px;
+      width: 140px;
       height: auto;
       margin-bottom: 5px;
     }
@@ -94,13 +82,11 @@
       padding: 20px;
       margin-top: 20px;
       box-shadow: 0 0 12px #00ff99;
-      width: 90%;
-      max-width: 300px;
     }
 
     .calc-circle {
-      width: 140px;
-      height: 140px;
+      width: 120px;
+      height: 120px;
       border-radius: 50%;
       border: 2px solid #00ff99;
       display: flex;
@@ -108,35 +94,23 @@
       justify-content: center;
       font-weight: bold;
       box-shadow: 0 0 12px #00ff99;
-      margin: 20px 0;
-      text-align: center;
+      margin: 15px 0;
     }
 
     .calc-btn {
       background: transparent;
       border: 2px solid #00ff99;
-      padding: 10px;
-      margin: 5px 0;
+      padding: 10px 20px;
+      margin: 5px;
       border-radius: 6px;
       color: white;
       cursor: pointer;
       box-shadow: 0 0 8px #00ff99;
-      min-width: 80px;
-      text-align: center;
     }
 
     .calc-btn:hover {
       background: #00ff99;
       color: black;
-    }
-
-    .calc-controls {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-      width: 100%;
-      margin-top: 10px;
     }
 
     /* Sportsbook panel */
@@ -196,15 +170,14 @@
     </div>
 
     <div class="calculator">
-      <div class="calc-btn">+100<br>$0</div>
+      <button class="calc-btn">+100<br>$0</button>
       <div class="calc-circle">Profit: $0</div>
-      <div class="calc-btn">-100<br>$0</div>
-
-      <div class="calc-controls">
+      <button class="calc-btn">-100<br>$0</button>
+      <div style="margin-top: 15px;">
         <label for="stake">Default Stake:</label>
         <input type="number" id="stake" value="100">
-        <button class="calc-btn">Track</button>
       </div>
+      <button class="calc-btn">Track</button>
     </div>
   </div>
 
@@ -219,9 +192,8 @@
     </div>
   </div>
 
-  <!-- OddsAPI Script -->
+  <!-- OddsAPI Script via Proxy -->
   <script>
-    const API_KEY = "de315d01b18dc6e2e5dc488d219fce01"; // Replace with your OddsAPI key
     const arbContainer = document.getElementById("arb-container");
 
     function convertDecimalToAmerican(decimal) {
@@ -234,15 +206,11 @@
 
     async function fetchArbs() {
       try {
-        const res = await fetch(`https://api.the-odds-api.com/v4/sports/upcoming/odds/?regions=us&markets=h2h&oddsFormat=decimal&apiKey=${API_KEY}`);
+        // 🚀 Use Cloudflare Worker instead of raw OddsAPI
+        const res = await fetch("https://btb-odds-proxy.jalennb23.workers.dev/odds");
         const data = await res.json();
 
         arbContainer.innerHTML = "";
-
-        if (!data || data.length === 0) {
-          arbContainer.innerHTML = `<div class="no-arbs">No games available right now</div>`;
-          return;
-        }
 
         data.slice(0, 10).forEach(game => {
           if (!game.bookmakers || game.bookmakers.length < 1) return;
@@ -256,8 +224,8 @@
           const card = document.createElement("div");
           card.className = "arb-card";
           card.innerHTML = `
-            <b>Game:</b> ${game.home_team} vs ${game.away_team} 
-            <span style="float:right;">Live</span><br>
+            <b>Arb?</b><br>
+            Game: ${game.home_team} vs ${game.away_team} <span style="float:right;">Live</span><br>
             Home: ${homeOdds}<br>
             Away: ${awayOdds}
           `;
@@ -266,7 +234,7 @@
 
       } catch (err) {
         console.error("Error fetching arbs:", err);
-        arbContainer.innerHTML = `<div class="no-arbs">Error loading odds. Please try again.</div>`;
+        arbContainer.innerHTML = "<div class='arb-card'>⚠️ Error loading odds</div>";
       }
     }
 
@@ -276,4 +244,3 @@
 
 </body>
 </html>
-
