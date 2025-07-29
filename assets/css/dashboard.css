@@ -324,27 +324,37 @@ body {
   overflow: hidden; /* prevent page scroll */
 }
 
-/* Left feed: make it scrollable */
+/* === Force full height layout + scrollable left feed === */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* stop whole page scroll */
+}
+
+.dashboard {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr; /* left / center / right */
+  height: 100vh; /* take full viewport height */
+}
+
 .left-feed {
-  overflow-y: auto;      /* enable vertical scroll */
-  max-height: 100vh;     /* lock height to screen */
+  overflow-y: auto;   /* scroll independently */
+  height: 100vh;      /* lock to viewport height */
   padding: 10px;
   border-right: 1px solid #444;
 }
 
-/* Center calculator: stays centered */
 .center-calc {
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 20px;
-  overflow: hidden; /* no scroll */
 }
 
-/* Right panel: scroll if needed */
 .right-books {
-  overflow-y: auto;
-  max-height: 100vh;
+  overflow-y: auto;   /* scroll if needed */
+  height: 100vh;
   padding: 10px;
   border-left: 1px solid #444;
 }
