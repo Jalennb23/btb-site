@@ -1,136 +1,147 @@
-/* === Reset & Base === */
+/* ========================
+   Global Layout
+   ======================== */
 body {
   margin: 0;
-  font-family: 'Inter', Arial, sans-serif;
+  font-family: Arial, sans-serif;
   background: #111;
   color: #fff;
 }
 
-/* === Dashboard Layout === */
 .dashboard {
   display: grid;
-  grid-template-columns: 1fr 2fr 1fr; /* left | center | right */
+  grid-template-columns: 1fr 1.5fr 1fr;
   height: 100vh;
-  gap: 20px;
-  padding: 20px;
+  gap: 15px;
+  padding: 10px;
   box-sizing: border-box;
 }
 
-/* === Left Feed (Arbitrage) === */
+/* ========================
+   Left Panel - Arbitrage Feed
+   ======================== */
 .left-feed {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+  overflow-y: auto;
+  padding-right: 5px;
 }
 
 .arb-card {
-  background: #1c1c1c;
-  padding: 15px;
+  background: #111;
+  border: 2px solid #00ff88;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 255, 102, 0.2);
-  transition: transform 0.2s ease;
-}
-.arb-card:hover {
-  transform: scale(1.02);
-  box-shadow: 0 0 15px rgba(0, 255, 102, 0.4);
+  padding: 10px;
+  margin-bottom: 12px;
+  box-shadow: 0 0 10px #00ff88;
 }
 
-/* === Center Calculator === */
+.arb-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.arb-percent {
+  color: #00ff88;
+}
+
+.arb-status {
+  font-size: 0.9em;
+  color: #ccc;
+}
+
+.arb-bar {
+  height: 5px;
+  background: #00ff88;
+  border-radius: 5px;
+  margin-top: 6px;
+}
+
+/* ========================
+   Center Panel - Calculator
+   ======================== */
 .center-calc {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
 .calc-box {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  background: #1c1c1c;
-  padding: 30px;
-  border-radius: 15px;
-  box-shadow: 0 0 20px rgba(0, 255, 102, 0.3);
-  min-width: 500px;
-  position: relative;
+  justify-content: center;
+  gap: 20px; /* spacing between elements */
 }
 
-/* Side Odds Boxes */
-.calc-box .side {
-  flex: 1;
+.side {
   background: #111;
-  border: 2px solid #00ff66;
-  box-shadow: 0 0 15px #00ff66;
-  padding: 20px;
+  border: 2px solid #00ff88;
+  border-radius: 8px;
+  padding: 10px 20px;
+  box-shadow: 0 0 10px #00ff88;
   text-align: center;
-  border-radius: 12px;
-  margin: 0 20px;
-  font-weight: 600;
 }
 
-/* Profit Circle in Middle */
 .center-circle {
-  flex: 0 0 180px;
-  height: 180px;
-  border-radius: 50%;
   background: #111;
-  border: 3px solid #00ff66;
-  box-shadow: 0 0 20px #00ff66;
+  border: 3px solid #00ff88;
+  border-radius: 50%;
+  width: 140px;
+  height: 140px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 700;
-  font-size: 18px;
-  text-align: center;
-  transition: all 0.2s ease;
-}
-.center-circle.pulse {
-  animation: pulseScale 0.6s ease-in-out;
+  font-weight: bold;
+  font-size: 1.1em;
+  box-shadow: 0 0 15px #00ff88;
 }
 
-/* Pulse effect when profit updates */
-@keyframes pulseScale {
-  0%   { transform: scale(1); }
-  50%  { transform: scale(1.08); }
-  100% { transform: scale(1); }
-}
-
-/* Track Button */
-.track-btn {
-  position: absolute;
-  bottom: -40px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #00ff66;
-  color: #111;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 600;
-  box-shadow: 0 0 10px #00ff66;
-  transition: background 0.2s, transform 0.2s;
-}
-.track-btn:hover {
-  background: #00cc55;
-  transform: scale(1.05);
-}
-
-/* === Right Sportsbook Panel === */
-.right-books {
-  background: #1c1c1c;
-  padding: 20px;
-  border-radius: 12px;
+/* ========================
+   Controls
+   ======================== */
+.calc-controls {
   display: flex;
   flex-direction: column;
-  gap: 15px;
-  box-shadow: 0 0 15px rgba(0, 255, 102, 0.2);
+  align-items: center;
+  margin-top: 15px;
 }
 
-.right-books h2 {
-  margin: 0;
-  font-size: 20px;
-  border-bottom: 2px solid #00ff66;
-  padding-bottom: 10px;
+.stake-input {
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.track-btn {
+  display: block;
+  margin: 0 auto;
+  background: #111;
+  border: 2px solid #00ff88;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 0 10px #00ff88;
+  transition: 0.2s;
+}
+
+.track-btn:hover {
+  background: #00ff88;
+  color: #111;
+  font-weight: bold;
+}
+
+/* ========================
+   Right Panel - Sportsbooks
+   ======================== */
+.right-books {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: #111;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0 0 10px #00ff88;
 }
 
 .book-list {
@@ -142,305 +153,48 @@ body {
 .book {
   display: flex;
   justify-content: space-between;
-  padding: 12px;
   background: #111;
+  border: 2px solid #00ff88;
   border-radius: 8px;
-  border: 2px solid #00ff66;
-  box-shadow: 0 0 10px #00ff66;
-  font-weight: 600;
+  padding: 8px 12px;
+  box-shadow: 0 0 8px #00ff88;
 }
 
 .total-box {
   margin-top: auto;
-  padding: 12px;
+  padding: 10px;
+  font-weight: bold;
   text-align: center;
-  background: #00ff66;
-  color: #111;
-  border-radius: 10px;
-  font-weight: 700;
-  font-size: 18px;
-  box-shadow: 0 0 15px #00ff66;
+  border-top: 2px solid #00ff88;
+  box-shadow: 0 -2px 8px #00ff88;
 }
 /* ========================
-   🔥 Arbitrage Feed Styles
+   Scrollbar Styling (BTB Theme)
    ======================== */
-.left-feed {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+
+/* For Chrome, Edge, Safari */
+.left-feed::-webkit-scrollbar {
+  width: 10px;
 }
 
-.arb-card {
-  background: #1a1a1a;
-  padding: 12px;
+.left-feed::-webkit-scrollbar-track {
+  background: #111; /* dark background */
   border-radius: 10px;
-  box-shadow: 0 0 8px rgba(0, 255, 100, 0.2);
-  transition: all 0.3s ease-in-out;
 }
 
-.arb-card .arb-header {
-  display: flex;
-  justify-content: space-between;
-  font-size: 14px;
-  color: #fff;
-  margin-bottom: 6px;
+.left-feed::-webkit-scrollbar-thumb {
+  background: #00ff88; /* BTB green */
+  border-radius: 10px;
+  box-shadow: 0 0 10px #00ff88; /* glowing effect */
 }
 
-.arb-card .arb-percent {
-  color: #00ff88;
-  font-weight: bold;
+.left-feed::-webkit-scrollbar-thumb:hover {
+  background: #00cc66; /* darker glow on hover */
 }
 
-.arb-card .arb-status {
-  color: #999;
-  font-style: italic;
-}
-
-.arb-card .arb-bar {
-  height: 6px;
-  border-radius: 5px;
-  background: linear-gradient(90deg, #00ff66, #00ffcc);
-  box-shadow: 0 0 12px #00ff88;
-  animation: pulse 1.5s infinite;
-}
-
-.arb-card.closed {
-  background: #222;
-  opacity: 0.6;
-  box-shadow: none;
-}
-
-.arb-card.closed .arb-bar {
-  background: #555;
-  box-shadow: none;
-  animation: none;
-}
-
-@keyframes pulse {
-  0% { box-shadow: 0 0 5px #00ff88; }
-  50% { box-shadow: 0 0 20px #00ff88; }
-  100% { box-shadow: 0 0 5px #00ff88; }
-}
-/* === Closed Arb State (Auto Triggered) === */
-.arb-card.closed {
-  background: #1a1a1a;
-  color: #aaa;
-  border: 1px solid #333;
-  opacity: 0.6;
-}
-
-.arb-card.closed::after {
-  content: "Bet Closed";
-  display: block;
-  text-align: center;
-  margin-top: 8px;
-  font-size: 13px;
-  color: #ff4d4d;
-  font-weight: 600;
-}
-/* === Stake Input Styling === */
-.stake-input {
-  position: absolute;
-  bottom: -90px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-}
-
-.stake-input label {
-  font-size: 14px;
-  font-weight: 600;
-  color: #00ff66;
-  text-shadow: 0 0 5px #00ff66;
-}
-
-.stake-input input {
-  background: #111;
-  border: 2px solid #00ff66;
-  border-radius: 6px;
-  padding: 6px 10px;
-  color: #fff;
-  font-weight: 600;
-  font-size: 14px;
-  text-align: center;
-  width: 120px;
-  box-shadow: 0 0 10px #00ff66;
-  outline: none;
-  transition: box-shadow 0.2s, transform 0.2s;
-}
-
-.stake-input input:focus {
-  box-shadow: 0 0 20px #00ff66;
-  transform: scale(1.05);
-}
-/* === Calculator Controls (Stake + Track Button) === */
-.calc-controls {
-  position: absolute;
-  bottom: -90px; /* sits below calculator */
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
-}
-
-/* Stake Input Style */
-.stake-input {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  background: #111;
-  padding: 10px 15px;
-  border-radius: 8px;
-  border: 2px solid #00ff66;
-  box-shadow: 0 0 10px #00ff66;
-}
-
-.stake-input label {
-  font-weight: 600;
-  font-size: 14px;
-}
-
-.stake-input input {
-  width: 80px;
-  padding: 6px 10px;
-  background: #000;
-  color: #00ff66;
-  border: 2px solid #00ff66;
-  border-radius: 6px;
-  font-weight: bold;
-  text-align: center;
-  box-shadow: 0 0 8px #00ff66;
-}
-/* Layout */
-.dashboard {
-  display: grid;
-  grid-template-columns: 1fr 2fr 1fr; /* left / center / right */
-  height: 100vh; /* full screen height */
-  overflow: hidden; /* prevent page scroll */
-}
-
-/* === Force full height layout + scrollable left feed === */
-html, body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  overflow: hidden; /* stop whole page scroll */
-}
-
-.dashboard {
-  display: grid;
-  grid-template-columns: 1fr 2fr 1fr; /* left / center / right */
-  height: 100vh; /* take full viewport height */
-}
-
+/* For Firefox */
 .left-feed {
-  overflow-y: auto;   /* scroll independently */
-  height: 100vh;      /* lock to viewport height */
-  padding: 10px;
-  border-right: 1px solid #444;
+  scrollbar-width: thin;
+  scrollbar-color: #00ff88 #111;
 }
-
-.center-calc {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-}
-
-.right-books {
-  overflow-y: auto;   /* scroll if needed */
-  height: 100vh;
-  padding: 10px;
-  border-left: 1px solid #444;
-}
-/* Force the dashboard to fill the screen */
-html, body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-}
-
-.dashboard {
-  display: grid;
-  grid-template-columns: 1fr 2fr 1fr; /* left / center / right */
-  height: 100vh; /* full screen height */
-  overflow: hidden; /* prevent page scroll */
-}
-
-/* Left feed scrolls independently */
-.left-feed {
-  overflow-y: auto;
-  height: 100vh;
-  padding: 10px;
-  border-right: 1px solid #444;
-}
-
-/* Calculator center stays fixed */
-.center-calc {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  overflow: hidden;
-}
-
-/* Right column also scrolls independently */
-.right-books {
-  overflow-y: auto;
-  height: 100vh;
-  padding: 10px;
-  border-left: 1px solid #444;
-}
-/* 🔹 Make dashboard fill screen height */
-.dashboard {
-  display: grid;
-  grid-template-columns: 1fr 2fr 1fr; /* left | center | right */
-  height: 100vh; /* full screen height */
-  overflow: hidden; /* prevent body scroll */
-}
-
-/* 🔹 Left arb feed scrolls */
-.left-feed {
-  overflow-y: auto;
-  padding: 10px;
-}
-
-/* 🔹 Right sportsbook panel scrolls */
-.right-books {
-  overflow-y: auto;
-  padding: 10px;
-}
-.calc-controls {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 15px; /* space between input and button */
-  margin-top: 15px;
-}
-
-.stake-input {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.right-books {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100%;
-}
-
-.total-box {
-  margin-top: auto;
-  padding: 10px;
-  font-weight: bold;
-  text-align: center;
-  border-top: 2px solid #00ff99;
-}
-
 
